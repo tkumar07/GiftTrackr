@@ -1,0 +1,1 @@
+My background is mostly in Java and a little bit in C++, and have built some react web-apps. I'm interested in devleoping and deploying ios-applications so that I have some background with building a real product and deploying it on the app store.
