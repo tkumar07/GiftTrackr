@@ -11,9 +11,14 @@ Next task: Do HW1.
 
 No current roadblocks.
 
+Decide the name of our project name: Gift Giving Tracker (possibly change to a cooler name later).
+
 We talked about the types of users: 
-1. Gift giver
+1. Gift giver.
 2. Friends of those gift givers, co-worker etc.
+
+Background story:
+Most people cannot remember every friend's birthday, so they usually miss their friends' birthdays every year. If there were a mobile application that could help them send gifts to their friends, that would be great!
 
 Goals:
 1. Never miss gift-giving occasion
