@@ -1,0 +1,5 @@
+- If joining in person is not feasible that week, then join in on zoom if you can.
+- If one of us can't make it due to a genuine reason, we'll give everyone a heads-up on our team Slack channel. We'll do our best to let folks know ahead of time, but if that's not possible, we'll communicate it as soon as we can.
+- We'll make an effort to minimize these absences.
+- When someone's not around, the rest of us will fill them in on what they missed and help them catch up.
+- We're all in this together, and we'll work together to make our team successful.
