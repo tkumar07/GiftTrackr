@@ -1,9 +1,9 @@
 Project: Gift giving
-Meeting Time: lect03
+Meeting Time: lect04
 
 Type of meeting: daily scrum
 
-Team: Benjamin Yang [x], Marie Karpinska [x], Shang-Hsun Yang [x], Tanish Kumar [ ], Archit Gupta [x],
+Team: Benjamin Yang [x], Marie Karpinska [x], Shang-Hsun Yang [x], Tanish Kumar [x], Archit Gupta [],
 
 Scribed Discussion:
 
