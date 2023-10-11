@@ -1,0 +1,1 @@
+Hi I'm Tanish, a 4th year CE major! I have experience coding mostly in Python and C++, and have internship experience in both software engineering and product management. Outside of school, I love watching/playing soccer and football.

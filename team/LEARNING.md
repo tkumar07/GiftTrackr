@@ -8,5 +8,7 @@ Archit:
 I am a fourth-year CS major, and in my free time, I do music, and love films as well! I will be serving as the product owner of our team.
 
 Shang-Hsun:
+Familiar with C, C++, and Python programming. Beginner in Android, iOS, and React Native. Have taken some machine learning and AI courses at school. Completed an internship at Logitech, where I worked on an automation project with Python to improve the layout review process.
 
 Tanish:
+My background is mainly in Python and C++ for backend development, from UCSB coursework, summmer internships, and personal projects. Interested in deep learning and computer vision.

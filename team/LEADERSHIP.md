@@ -1,3 +1,5 @@
-product owner: Archit Gupta
-scrum master: Marie Karpinska
-scribe: Benjamin Yang
+Product owner: Archit Gupta
+
+Scrum master: Marie Karpinska
+
+Scribe: Benjamin Yang, Shang-Hsun Yang
