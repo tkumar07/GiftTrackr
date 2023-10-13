@@ -12,3 +12,23 @@ Familiar with C, C++, and Python programming. Beginner in Android, iOS, and Reac
 
 Tanish:
 My background is mainly in Python and C++ for backend development, from UCSB coursework, summmer internships, and personal projects. Interested in deep learning and computer vision.
+
+Friday Oct-13th Section:
+
+Ben:
+Benefits: Easy to use, Javascript is simple, and able to deploy to IOS and android with realtive simplicty
+Challenges: Having to deal with node/expo installation. Javascript is not a great language, and the devleopment environent is not as nice as swift (IMO).
+
+Marie:
+Benefit: lots of existing documentation, and skill transfer from React
+Challenge: Expo CLI may be limiting
+
+Archit:
+
+Shang-Hsun:
+Good: Real-time Updates
+Bad: No Support for Parallel Threading
+
+Tanish:
+benefit: reuseable components
+challenge: harder to debug
