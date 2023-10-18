@@ -3,7 +3,7 @@ Meeting Time: lect04
 
 Type of meeting: daily scrum
 
-Team: Benjamin Yang [x], Marie Karpinska [x], Shang-Hsun Yang [x], Tanish Kumar [x], Archit Gupta []
+Team: Benjamin Yang [x], Marie Karpinska [x], Shang-Hsun Yang [x], Tanish Kumar [x], Archit Gupta [x]
 
 People are preparing to setup their environments and do the first homework.
 
