@@ -65,6 +65,14 @@ const styles = {
     color: "white",
     fontSize: 18,
   },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ddd',
+    padding: 10,
+    marginVertical: 10,
+    borderRadius: 5,
+    width: "80%"
+  }
 };
 
 export default HomeScreen;
