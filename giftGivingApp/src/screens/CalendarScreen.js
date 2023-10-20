@@ -1,13 +1,15 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, text } from "react-native";
+import { Calendar } from "react-native-calendars";
 
-function CalendarScreen() {
+const CalendarScreen = () => {
   return (
-    <View style={styles.container}>
-      <Text>calendar screen</Text>
+    <View style={{ flex: 1 }}>
+      <Calendar/>
     </View>
   );
-}
+};
+
 
 const styles = {
   container: {
