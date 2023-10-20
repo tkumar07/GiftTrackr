@@ -6,6 +6,7 @@ import LoginScreen from "./src/screens/LoginScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import AddGiftScreen from "./src/screens/AddGiftScreen";
 import CalendarScreen from "./src/screens/CalendarScreen";
+import BirthdayInfo from "./src/screens/BirthdayInfo";
 
 const Stack = createStackNavigator();
 
@@ -27,6 +28,7 @@ export default function App() {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Add Gift" component={AddGiftScreen} />
           <Stack.Screen name="Calendar" component={CalendarScreen} />
+          <Stack.Screen name="BirthdayInfo" component={BirthdayInfo} />
         </Stack.Navigator>
       </NavigationContainer>
       <StatusBar style="auto" />
