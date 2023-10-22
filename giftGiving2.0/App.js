@@ -13,11 +13,51 @@ const Tab = createMaterialBottomTabNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Calendar" component={CalendarScreen} />
-        <Tab.Screen name="Budget" component={BudgetScreen} />
-        <Tab.Screen name="AddGift" component={AddGift} />
+      <Tab.Navigator
+        labeled={false}
+        barStyle={{ backgroundColor: "black" }}
+        activeColor="white"
+      >
+        <Tab.Screen
+          name="Home"
+          component={Home}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="home" color={color} size={26} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Calendar"
+          component={CalendarScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="calendar" color={color} size={26} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Budget"
+          component={BudgetScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons
+                name="account-cash"
+                color={color}
+                size={26}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="AddGift"
+          component={AddGift}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="gift" color={color} size={26} />
+            ),
+          }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
