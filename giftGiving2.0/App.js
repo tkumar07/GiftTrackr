@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import Home from "./Home";
 import CalendarScreen from "./src/screens/CalendarScreen";
-import Budget from "./src/screens/Budget";
+import BudgetScreen from "./src/screens/BudgetScreen";
 import AddGift from "./src/screens/AddGift";
 import React, { Component } from "react";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
@@ -16,7 +16,7 @@ export default function App() {
       <Tab.Navigator>
         <Tab.Screen name="Home" component={Home} />
         <Tab.Screen name="Calendar" component={CalendarScreen} />
-        <Tab.Screen name="Budget" component={Budget} />
+        <Tab.Screen name="Budget" component={BudgetScreen} />
         <Tab.Screen name="AddGift" component={AddGift} />
       </Tab.Navigator>
     </NavigationContainer>

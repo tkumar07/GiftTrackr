@@ -1,17 +1,21 @@
 import React from "react";
 import { useState } from "react";
 import { View, Text, TextInput } from "react-native";
-import { BudgetSection } from "../components/BudgetSection";
 import { styles } from "../styles";
 
-function Budget() {
+function BudgetScreen() {
   const [totalBudget, setTotalBudget] = useState(1000); // Default budget
   const [amountSpent, setAmountSpent] = useState(0);
+  const amountRemaining = totalBudget - amountSpent;
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text>Budget Screen</Text>
-      <BudgetSection totalBudget={totalBudget} amountSpent={amountSpent} />
+      <View style={styles.container}>
+        <Text>Total Budget: ${totalBudget}</Text>
+        <Text>Amount Spent: ${amountSpent}</Text>
+        <Text>Amount Remaining: ${amountRemaining}</Text>
+      </View>
 
       <Text>Set Your Budget:</Text>
       <TextInput
@@ -24,4 +28,4 @@ function Budget() {
   );
 }
 
-export default Budget;
+export default BudgetScreen;
