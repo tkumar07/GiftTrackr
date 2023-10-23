@@ -2,7 +2,7 @@
 
 * Led by: n Archit Gupta
 * Present: Marie Karpinska, Shang-Hsun Yang, Archit Gupta(virtual), Tanish Kumar(virtual)
-* Absent: Ben Yang
+* Absent: Ben Yang (Contributed after class)
 
 ## Action item
 
@@ -11,3 +11,8 @@
 * a measurement: pair up for code reviews, more reviews/PRs will allow for measurement
 
 * made good progress on sec02 assignment
+
+Benjamin Yang: 
+* a goal: add more clear subtasks to track progress and stay on track
+* a change: have more communication about task progress
+* a measurement: agree with pairing up for code reviews
