@@ -1,4 +1,13 @@
 export const styles = {
+  box: {
+    flexDirection: "row", // contents lay horizontally
+    justifyContent: "space-between", //contents spread out
+    backgroundColor: "#f0f0f0",
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 5,
+    padding: 10,
+  },
   button: {
     backgroundColor: "#007BFF",
     padding: 10,
@@ -26,14 +35,30 @@ export const styles = {
     },
     shadowOpacity: 0.8,
     shadowRadius: 2,
-    elevation: 4, // Add shadow border
+    elevation: 4,
+    padding: 15,
+    margin: 15,
+  },
+  cardContent: {
+    padding: 5,
+    marginTop: -5,
+    marginBottom: 8,
   },
   cardHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: 10,
-    margin: 1,
+    padding: 5,
+  },
+  column: {
+    flex: 1, // Each column takes an equal amount of space.
+    paddingHorizontal: 10, // Add horizontal padding for spacing.
+    flexDirection: "column", // contents lay vertically
+    alignItems: "flex-start",
+  },
+  columnTitle: {
+    fontSize: 16, // Style for the column title ("Likes" and "Dislikes").
+    fontWeight: "bold", // Make it bold if needed.
   },
   container: {
     flex: 1,
@@ -61,6 +86,11 @@ export const styles = {
     fontWeight: "bold",
   },
   text: {
-    fontSize: 18,
+    fontSize: 16,
+  },
+  twoColumnContainer: {
+    flexDirection: "row", // Set the direction to 'row' for a horizontal layout.
+    justifyContent: "space-between", // Add space between the two columns.
+    alignItems: "center", // Center the content vertically.
   },
 };

@@ -6,15 +6,21 @@ import { styles } from "./src/styles";
 const fakeGiftCards = [
   {
     recipient: "Alice",
-    date: "2023-11-10",
+    date: "November 11, 2023",
     occasion: "Birthday",
-    gift: "Gift Card 1",
+    budget: "$50",
+    likes: "Disney, Mandalorian, Painting",
+    dislikes: "Coffee",
+    decidedGift: "grogu stuffed animal",
   },
   {
     recipient: "Bob",
-    date: "2023-12-05",
+    date: "December 16, 2023",
     occasion: "Anniversary",
-    gift: "Gift Card 2",
+    budget: "$75",
+    likes: "Movies, Painting, Cooking",
+    dislikes: "Technology, Sports",
+    decidedGift: "undecided",
   },
 ];
 
@@ -28,7 +34,10 @@ function HomeScreen() {
           recipient={giftCard.recipient}
           date={giftCard.date}
           occasion={giftCard.occasion}
-          gift={giftCard.gift}
+          budget={giftCard.budget}
+          likes={giftCard.likes}
+          dislikes={giftCard.dislikes}
+          decidedGift={giftCard.decidedGift}
         />
       ))}
     </View>
