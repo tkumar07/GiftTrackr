@@ -1,7 +1,7 @@
 export const styles = {
   box: {
-    flexDirection: "row", // contents lay horizontally
-    justifyContent: "space-between", //contents spread out
+    flexDirection: "row",
+    justifyContent: "space-between",
     backgroundColor: "#f0f0f0",
     borderWidth: 1,
     borderColor: "#ccc",
@@ -51,14 +51,14 @@ export const styles = {
     padding: 5,
   },
   column: {
-    flex: 1, // Each column takes an equal amount of space.
-    paddingHorizontal: 10, // Add horizontal padding for spacing.
-    flexDirection: "column", // contents lay vertically
+    flex: 1,
+    paddingHorizontal: 10,
+    flexDirection: "column",
     alignItems: "flex-start",
   },
   columnTitle: {
-    fontSize: 16, // Style for the column title ("Likes" and "Dislikes").
-    fontWeight: "bold", // Make it bold if needed.
+    fontSize: 16,
+    fontWeight: "bold",
   },
   container: {
     flex: 1,
@@ -81,6 +81,11 @@ export const styles = {
     borderRadius: 5,
     width: "80%",
   },
+  pageHeader: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
   subtitle: {
     fontSize: 20,
     fontWeight: "bold",
@@ -89,8 +94,9 @@ export const styles = {
     fontSize: 16,
   },
   twoColumnContainer: {
-    flexDirection: "row", // Set the direction to 'row' for a horizontal layout.
-    justifyContent: "space-between", // Add space between the two columns.
-    alignItems: "center", // Center the content vertically.
+    marginTop: 3,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
   },
 };

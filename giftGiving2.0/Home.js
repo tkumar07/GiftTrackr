@@ -27,7 +27,7 @@ const fakeGiftCards = [
 function HomeScreen() {
   return (
     <View style={{ ...styles.container, marginTop: 10 }}>
-      <Text>Upcoming Gifts:</Text>
+      <Text style={styles.pageHeader}>Upcoming Gifts:</Text>
       {fakeGiftCards.map((giftCard, index) => (
         <GiftDetailsCard
           key={index}
