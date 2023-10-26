@@ -1,22 +1,54 @@
-import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import React, { useState } from 'react';
+import { View, TextInput, Button, Alert } from 'react-native';
+import { collection, query, where, getDocs } from '@firebase/firestore';
+import { db } from "../config/firebase"
 
-function Login({ navigation }) {
+const Login  = (props) => {
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+
+  const handleSubmit = async () => {
+    try {
+      const usersRef = collection(db, "users");
+      const q = query(usersRef, where("username", "==", username));
+      const querySnapshot = await getDocs(q);
+      if (!querySnapshot.empty) {
+        const userData = querySnapshot.docs[0].data();
+        if (userData.password === password) {
+          if (props && props.onSuccessfulLogin) {
+            console.log("HELLO THERE")
+            props.onSuccessfulLogin();
+          }
+          console.log("Login successful");
+        } else {
+          Alert.alert("Login Error", "Incorrect password");
+        }
+      } else {
+        Alert.alert("Login Error", "Username not found");
+      }
+    } catch (error) {
+      console.error("Error logging in: ", error);
+    }
+  };
+
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-        <Text>Go to Home</Text>
-      </TouchableOpacity>
+    <View style={{ flex: 1, justifyContent: 'center', padding: 16 }}>
+      <TextInput
+        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+        onChangeText={setPassword}
+        value={password}
+        placeholder="Enter password"
+      />
+
+      <TextInput
+        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+        onChangeText={setUsername}
+        value={username}
+        placeholder="Enter username"
+      />
+      <Button title="Submit" onPress={handleSubmit} />
     </View>
   );
-}
-
-const styles = {
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
 };
 
 export default Login;
