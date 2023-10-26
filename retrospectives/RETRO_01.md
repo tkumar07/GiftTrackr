@@ -1,6 +1,6 @@
 # Date of Retrospective: 10/20/23
 
-* Led by: n Archit Gupta
+* Led by: Archit Gupta
 * Present: Marie Karpinska, Shang-Hsun Yang, Archit Gupta(virtual), Tanish Kumar(virtual)
 * Absent: Ben Yang (Contributed after class)
 
@@ -18,7 +18,18 @@ Benjamin Yang:
 * a measurement: agree with pairing up for code reviews
 
 ## Retrospective Outcome:
-* we paired up for code reviews and have more people than before our retro who have reivewed a pull request
+* we paired up for code reviews and have more people than before our retro who have received a pull request
 * we have more pull requests than before
 * we added clearer descriptions and acceptance criteria under issues
 * we are overall closer to our mvp!
+
+## Retro Assessment
+* The retrospective began by noting attendees and the progress made. It then delved into collective and individual action items, emphasizing goals, necessary changes, and success metrics.
+* The session was productive, highlighting the team's focus on enhanced communication, clarity, and pair programming. Even in absence, contributions (like Ben's) were considered, emphasizing the inclusiveness of the process.
+* Advice for Next Retro Leader:
+*   1. Engage Everyone: Incorporate inputs from all, including absent members.
+    2. Focus on Measurables: Track improvements using tangible metrics.
+    3. Ensure Safety: The retro should be a judgment-free zone.
+    4. Prioritize & Act: Zero in on high-impact action items.
+    5. Celebrate Achievements: Acknowledge successes to boost team morale.
+    6. Seek Constructive Feedback: Encourage actionable feedback for growth.
