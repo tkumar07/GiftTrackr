@@ -9,15 +9,14 @@ import { NavigationContainer } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { collection, onSnapshot } from "firebase/firestore"
 import { db } from "./src/config/firebase"
-
+import Login from "./src/screens/Login"
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
-
-  console.log(process.env.REACT_APP_FIREBASE_API_KEY);
-
   const [people, setPeople] = useState([])
   const [loading, setLoading] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
 
   useEffect(() => {
     setLoading(true)
@@ -49,14 +48,10 @@ export default function App() {
 
   return (
     <NavigationContainer>
-        <View style={styles.container}>
-        <Text>Firebase Example</Text>
-        <FlatList
-          data={people}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
-      </View>
+      {!isLoggedIn ? (
+        <Login onSuccessfulLogin={() => setIsLoggedIn(true)} />
+      ) : (
+        <>
       <Tab.Navigator
         labeled={false}
         barStyle={{ backgroundColor: "black" }}
@@ -103,6 +98,8 @@ export default function App() {
           }}
         />
       </Tab.Navigator>
+        </>
+      )}
     </NavigationContainer>
   );
 }
