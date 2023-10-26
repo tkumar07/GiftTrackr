@@ -1,18 +1,62 @@
-import { StyleSheet, Text, View } from "react-native";
+import React, {useState, useEffect} from "react";
+import { StyleSheet, Text, View, FlatList } from 'react-native';
 import Home from "./Home";
 import CalendarScreen from "./src/screens/CalendarScreen";
 import BudgetScreen from "./src/screens/BudgetScreen";
 import AddGift from "./src/screens/AddGift";
-import React, { Component } from "react";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { collection, onSnapshot } from "firebase/firestore"
+import { db } from "./src/config/firebase"
 
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
+
+  console.log(process.env.REACT_APP_FIREBASE_API_KEY);
+
+  const [people, setPeople] = useState([])
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    setLoading(true)
+    const usersQuery = collection(db, "users")
+    onSnapshot(usersQuery, (snapshot) => {
+      let usersList = []
+      snapshot.docs.map((doc) => usersList.push({ ...doc.data(), id: doc.id }))
+      setPeople(usersList)
+      setLoading(false)
+    })
+  }, [])
+
+  const renderItem = ({ item }) => (
+    <View style={{ marginTop: 10 }}>
+      <Text>{item.username}</Text>    
+      <Text>{item.password}</Text>    
+    </View>
+  )
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: "#fff",
+      alignItems: "center",
+      justifyContent: "center",
+      marginTop: 50,
+    },
+  })
+
   return (
     <NavigationContainer>
+        <View style={styles.container}>
+        <Text>Firebase Example</Text>
+        <FlatList
+          data={people}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+        />
+      </View>
       <Tab.Navigator
         labeled={false}
         barStyle={{ backgroundColor: "black" }}
