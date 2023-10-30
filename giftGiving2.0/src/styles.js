@@ -83,6 +83,7 @@ export const styles = {
     width: "80%",
   },
   pageHeader: {
+    width: "100%",
     marginTop: 15,
     fontSize: 24,
     fontWeight: "bold",

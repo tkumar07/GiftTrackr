@@ -64,8 +64,13 @@ function HomeScreen() {
   const marginTopAmnt = screenHeight * 0.09;
 
   return (
-    <View style={{ ...styles.container, marginTop: marginTopAmnt }}>
-      <ScrollView>
+    <View
+      style={{
+        ...styles.container,
+        marginTop: marginTopAmnt,
+      }}
+    >
+      <ScrollView width="100%">
         <Text style={styles.pageHeader}>Gifts Given This Week:</Text>
 
         {giftsGivenThisWeek.map((giftCard, index) => (
