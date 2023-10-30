@@ -13,7 +13,7 @@ const GiftDetailsCard = ({
   decidedGift,
 }) => {
   const formatDate = (unixTimestamp) => {
-    const dateObject = new Date(unixTimestamp); // Convert to milliseconds
+    const dateObject = new Date(unixTimestamp);
     return dateObject.toDateString();
   };
 

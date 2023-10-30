@@ -6,7 +6,7 @@ import { styles } from "./src/styles";
 const fakeGiftCards = [
   {
     recipient: "Brandon",
-    date: "1698386462000",
+    date: 1698386462000,
     occasion: "Birthday",
     budget: "$10",
     likes: "Coffee",
@@ -15,7 +15,7 @@ const fakeGiftCards = [
   },
   {
     recipient: "Alice",
-    date: "1699394862000",
+    date: 1699394862000,
     occasion: "House Warming",
     budget: "$50",
     likes: "Disney, Mandalorian, Painting",
@@ -24,7 +24,7 @@ const fakeGiftCards = [
   },
   {
     recipient: "Tootsie the dog",
-    date: "1700777262000",
+    date: 1700777262000,
     occasion: "Birthday",
     budget: "$10",
     likes: "Walks, bells, treats",
@@ -33,7 +33,7 @@ const fakeGiftCards = [
   },
   {
     recipient: "Bob",
-    date: "1703369262000",
+    date: 1703369262000,
     occasion: "Chrismtas",
     budget: "$75",
     likes: "Movies, Painting, Cooking",
