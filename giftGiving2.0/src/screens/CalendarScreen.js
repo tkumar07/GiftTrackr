@@ -38,14 +38,11 @@ const CalendarScreen = () => {
     <View style={styles.container}>
       <Text style={styles.pageHeader}>Calendar</Text>
       <View style={styles.calendarContainer}>
-        <Calendar
-          markedDates={markedDates}
-          onDayPress={handleDayPress}
-        />
+        <Calendar markedDates={markedDates} onDayPress={handleDayPress} />
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
