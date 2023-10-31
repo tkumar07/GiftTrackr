@@ -10,12 +10,14 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { collection, onSnapshot } from "firebase/firestore"
 import { db } from "./src/config/firebase"
 import Login from "./src/screens/Login"
+import SignUp from "./src/screens/SignUp"
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
   const [people, setPeople] = useState([])
   const [loading, setLoading] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [signIn, setSignIn] = useState(false);
 
 
   useEffect(() => {
@@ -32,7 +34,6 @@ export default function App() {
   const renderItem = ({ item }) => (
     <View style={{ marginTop: 10 }}>
       <Text>{item.username}</Text>    
-      <Text>{item.password}</Text>    
     </View>
   )
 
@@ -49,7 +50,12 @@ export default function App() {
   return (
     <NavigationContainer>
       {!isLoggedIn ? (
-        <Login onSuccessfulLogin={() => setIsLoggedIn(true)} />
+        <View style={styles.container}>
+          <Login onSuccessfulLogin={() => setIsLoggedIn(true)} />
+          <SignUp onSuccessfulSignUp={() => setIsLoggedIn(true)} />
+        </View>
+
+         
       ) : (
         <>
       <Tab.Navigator

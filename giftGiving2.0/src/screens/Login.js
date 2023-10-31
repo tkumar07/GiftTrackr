@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Alert } from 'react-native';
-import { collection, query, where, getDocs } from '@firebase/firestore';
+import { View, Text, TextInput, Button, Alert } from 'react-native';
+import { collection, query, where, getDocs, addDoc } from '@firebase/firestore';
 import { db } from "../config/firebase"
 
 const Login  = (props) => {
@@ -16,7 +16,6 @@ const Login  = (props) => {
         const userData = querySnapshot.docs[0].data();
         if (userData.password === password) {
           if (props && props.onSuccessfulLogin) {
-            console.log("HELLO THERE")
             props.onSuccessfulLogin();
           }
           console.log("Login successful");
@@ -33,6 +32,9 @@ const Login  = (props) => {
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', padding: 16 }}>
+      <Text>
+        LOGIN
+      </Text>
       <TextInput
         style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
         onChangeText={setPassword}
