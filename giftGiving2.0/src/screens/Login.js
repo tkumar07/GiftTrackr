@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert } from 'react-native';
-import { collection, query, where, getDocs, addDoc } from '@firebase/firestore';
-import { db } from "../config/firebase"
+import React, { useState } from "react";
+import { View, Text, TextInput, Alert, Image } from "react-native";
+import { collection, query, where, getDocs } from "@firebase/firestore";
+import { db } from "../config/firebase";
+import { styles } from "../styles";
+import CustomButton from "../components/CustomButton";
 
-const Login  = (props) => {
-  const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
+const Login = (props) => {
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
 
   const handleSubmit = async () => {
     try {
@@ -31,24 +33,49 @@ const Login  = (props) => {
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', padding: 16 }}>
-      <Text>
-        LOGIN
-      </Text>
+    <View style={[styles.container, { padding: 16 }]}>
+      <Image
+        source={require("../../assets/giftTrackrLogo.png")}
+        style={{
+          width: "33%",
+          aspectRatio: 1,
+          resizeMode: "contain",
+        }}
+      />
+      <Text style={styles.pageHeader}>Log in to GiftTrackr</Text>
+
       <TextInput
-        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+        style={styles.input}
         onChangeText={setUsername}
         value={username}
         placeholder="Enter username"
       />
       <TextInput
-        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+        style={styles.input}
         onChangeText={setPassword}
         value={password}
         placeholder="Enter password"
+        secureTextEntry // Hides the password
       />
-      <Button title="Submit" onPress={handleSubmit} />
-
+      <View style={styles.buttonsContainer}>
+        <CustomButton title="Log In" onPress={handleSubmit} />
+      </View>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          marginTop: 20,
+          justifyContent: "center",
+        }}
+      >
+        <Text>Don't have an account? </Text>
+        <Text
+          style={{ color: styles.almostWhiteText }}
+          onPress={() => props.onSwitchToSignUp()}
+        >
+          Sign up
+        </Text>
+      </View>
     </View>
   );
 };
