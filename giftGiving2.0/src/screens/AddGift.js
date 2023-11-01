@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
 import { getFirestore, addDoc, collection } from "firebase/firestore";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function AddGift({ navigation }) {
   const [recipient, setRecipient] = useState("");
@@ -36,7 +37,6 @@ function AddGift({ navigation }) {
       Alert.alert("Error", "Please enter a valid date.");
       return;
     }
-
     const giftData = {
       recipient,
       date,
