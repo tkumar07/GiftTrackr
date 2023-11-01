@@ -9,6 +9,7 @@ const SignUp  = (props) => {
   const [username, setUsername] = useState('');
 
   const handleSubmit = async () => {
+    console.log("HERE")
     try {
         if(password != passwordConf){
             Alert("Passwords do not match")
@@ -18,7 +19,8 @@ const SignUp  = (props) => {
         const q = query(usersRef, where("username", "==", username));
         const querySnapshot = await getDocs(q);
         if (!querySnapshot.empty) {
-            Alert("Username Exists, try another")
+            const userData = querySnapshot.docs[0].data();
+            Alert.alert("Username exists")
         } else {
           await addDoc(usersRef, {
             username: username,
@@ -26,7 +28,7 @@ const SignUp  = (props) => {
             gifts: [],
             totalBudget: 0
           });
-          
+          console.log("Hello")
           Alert.alert("Success", "Account created successfully!");
 
           if (props && props.onSuccessfulSignUp) {
@@ -34,7 +36,6 @@ const SignUp  = (props) => {
           }
         }
     } catch (error) {
-      console.error("Error signing up: ", error);
       Alert.alert("Error", "An error occurred during sign up");
     }
   };
@@ -57,7 +58,6 @@ const SignUp  = (props) => {
         value={password}
         placeholder="Enter password"
       />
-
         <TextInput
         style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
         onChangeText={setPasswordConf}
