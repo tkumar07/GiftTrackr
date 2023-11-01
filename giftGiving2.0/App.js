@@ -10,6 +10,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "./src/config/firebase";
 import Login from "./src/screens/Login";
+
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
@@ -33,6 +34,13 @@ export default function App() {
     setUsername(user);
     setIsLoggedIn(true);
   };
+
+  const renderItem = ({ item }) => (
+    <View style={{ marginTop: 10 }}>
+      <Text>{item.username}</Text>
+      <Text>{item.password}</Text>
+    </View>
+  );
 
   const styles = StyleSheet.create({
     container: {
