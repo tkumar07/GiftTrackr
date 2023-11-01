@@ -37,18 +37,18 @@ const Login  = (props) => {
       </Text>
       <TextInput
         style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-        onChangeText={setPassword}
-        value={password}
-        placeholder="Enter password"
-      />
-
-      <TextInput
-        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
         onChangeText={setUsername}
         value={username}
         placeholder="Enter username"
       />
       <Button title="Submit" onPress={handleSubmit} />
+
+      <TextInput
+        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+        onChangeText={setPassword}
+        value={password}
+        placeholder="Enter password"
+      />
     </View>
   );
 };

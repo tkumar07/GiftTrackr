@@ -57,7 +57,6 @@ const SignUp  = (props) => {
         value={password}
         placeholder="Enter password"
       />
-
         <TextInput
         style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
         onChangeText={setPasswordConf}
