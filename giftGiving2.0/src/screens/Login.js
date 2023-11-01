@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, TextInput, Button, Alert } from "react-native";
+import { View, TextInput, Button, Alert, Text } from "react-native";
 import { collection, query, where, getDocs } from "@firebase/firestore";
 import { db } from "../config/firebase";
 
@@ -32,24 +32,21 @@ const Login = (props) => {
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', padding: 16 }}>
-      <Text>
-        LOGIN
-      </Text>
+    <View style={{ flex: 1, justifyContent: "center", padding: 16 }}>
+      <Text>LOGIN</Text>
       <TextInput
-        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+        style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
         onChangeText={setUsername}
         value={username}
         placeholder="Enter username"
       />
       <TextInput
-        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+        style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
         onChangeText={setPassword}
         value={password}
         placeholder="Enter password"
       />
       <Button title="Submit" onPress={handleSubmit} />
-
     </View>
   );
 };
