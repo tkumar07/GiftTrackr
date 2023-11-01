@@ -32,21 +32,24 @@ const Login = (props) => {
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", padding: 16 }}>
+    <View style={{ flex: 1, justifyContent: 'center', padding: 16 }}>
+      <Text>
+        LOGIN
+      </Text>
       <TextInput
-        style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
+        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
         onChangeText={setUsername}
         value={username}
         placeholder="Enter username"
       />
-
       <TextInput
-        style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
+        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
         onChangeText={setPassword}
         value={password}
         placeholder="Enter password"
       />
       <Button title="Submit" onPress={handleSubmit} />
+
     </View>
   );
 };
