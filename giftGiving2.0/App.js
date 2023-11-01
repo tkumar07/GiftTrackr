@@ -13,7 +13,6 @@ import Login from "./src/screens/Login";
 import SignUp from "./src/screens/SignUp";
 import { styles } from "./src/styles";
 import { useTheme } from "react-native-paper";
-
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
@@ -79,6 +78,7 @@ export default function App() {
           >
             <Tab.Screen
               name="Home"
+              initialParams={{ username: username }}
               component={Home}
               initialParams={{ username: username }}
               options={{

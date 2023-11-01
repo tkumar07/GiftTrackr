@@ -11,6 +11,7 @@ import {
 import { getFirestore, addDoc, collection } from "firebase/firestore";
 import { styles } from "../styles";
 
+
 function AddGift({ navigation }) {
   const [recipient, setRecipient] = useState("");
   const [date, setDate] = useState("");
@@ -50,6 +51,7 @@ function AddGift({ navigation }) {
       (year === currentYear && month < currentMonth) ||
       (year === currentYear && month === currentMonth && day < currentDay)
     ) {
+
       Alert.alert("Error", "Please enter a valid date.");
       return;
     }
