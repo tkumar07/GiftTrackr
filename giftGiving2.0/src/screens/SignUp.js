@@ -12,28 +12,28 @@ const SignUp  = (props) => {
     console.log("HERE")
     try {
         if(password != passwordConf){
-            Alert("Passwords do not match")
-        }
-
-        const usersRef = collection(db, "users");
-        const q = query(usersRef, where("username", "==", username));
-        const querySnapshot = await getDocs(q);
-        if (!querySnapshot.empty) {
-            const userData = querySnapshot.docs[0].data();
-            Alert.alert("Username exists")
+          Alert.alert("Passwords do not match")
         } else {
-          await addDoc(usersRef, {
-            username: username,
-            password: password,
-            gifts: [],
-            totalBudget: 0
-          });
-          console.log("Hello")
-          Alert.alert("Success", "Account created successfully!");
-
-          if (props && props.onSuccessfulSignUp) {
-            props.onSuccessfulSignUp();
-          }
+            const usersRef = collection(db, "users");
+            const q = query(usersRef, where("username", "==", username));
+            const querySnapshot = await getDocs(q);
+            if (!querySnapshot.empty) {
+                const userData = querySnapshot.docs[0].data();
+                Alert.alert("Username exists")
+            } else {
+              await addDoc(usersRef, {
+                username: username,
+                password: password,
+                gifts: [],
+                totalBudget: 0
+              });
+              console.log("Hello")
+              Alert.alert("Success", "Account created successfully!");
+    
+              if (props && props.onSuccessfulSignUp) {
+                props.onSuccessfulSignUp();
+              }
+            }
         }
     } catch (error) {
       Alert.alert("Error", "An error occurred during sign up");
