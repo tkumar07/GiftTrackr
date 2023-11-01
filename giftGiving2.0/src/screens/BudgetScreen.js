@@ -20,7 +20,6 @@ function BudgetScreen() {
   return (
     <View>
       <Text>Budget Screen</Text>
-      <BudgetSection totalBudget={totalBudget} amountSpent={amountSpent} />
 
       <Text>Set Your Budget:</Text>
       <TextInput
