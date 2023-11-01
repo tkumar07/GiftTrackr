@@ -1,48 +1,54 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, ScrollView, Dimensions } from "react-native";
 import { GiftDetailsCard } from "./src/components/GiftDetailsCard";
 import { styles } from "./src/styles";
+import { db } from "./src/config/firebase";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  doc,
+  getDoc,
+} from "firebase/firestore";
 
-const fakeGiftCards = [
-  {
-    recipient: "Brandon",
-    date: 1698386462000,
-    occasion: "Birthday",
-    budget: "$10",
-    likes: "Coffee",
-    dislikes: "Milk",
-    decidedGift: "Starbucks Giftcard",
-  },
-  {
-    recipient: "Alice",
-    date: 1699394862000,
-    occasion: "House Warming",
-    budget: "$50",
-    likes: "Disney, Mandalorian, Painting",
-    dislikes: "Coffee",
-    decidedGift: "grogu stuffed animal",
-  },
-  {
-    recipient: "Tootsie the dog",
-    date: 1700777262000,
-    occasion: "Birthday",
-    budget: "$10",
-    likes: "Walks, bells, treats",
-    dislikes: "Vacuum cleaner",
-    decidedGift: "dog bone",
-  },
-  {
-    recipient: "Bob",
-    date: 1703369262000,
-    occasion: "Chrismtas",
-    budget: "$75",
-    likes: "Movies, Painting, Cooking",
-    dislikes: "Technology, Sports",
-    decidedGift: "undecided",
-  },
-];
+function HomeScreen(props) {
+  const { username } = props.route.params;
+  const [userGifts, setUserGifts] = useState([]);
+  useEffect(() => {
+    // Fetch user's gifts from Firebase
+    const fetchUserGifts = async () => {
+      try {
+        const usersRef = collection(db, "users");
+        const userQuery = query(usersRef, where("username", "==", username));
+        const userQuerySnapshot = await getDocs(userQuery);
 
-function HomeScreen() {
+        if (!userQuerySnapshot.empty) {
+          const userData = userQuerySnapshot.docs[0].data();
+          const userGiftIDs = userData.gifts || [];
+
+          // Fetch gift details for each gift ID
+          const giftDetailsPromises = userGiftIDs.map(async (giftID) => {
+            const giftRef = doc(db, "gifts", giftID);
+            const giftDoc = await getDoc(giftRef);
+            if (giftDoc.exists()) {
+              return { ...giftDoc.data(), id: giftDoc.id };
+            }
+            return null;
+          });
+
+          // Wait for all promises to resolve and set the userGifts state
+          const giftsData = await Promise.all(giftDetailsPromises);
+          setUserGifts(giftsData.filter(Boolean));
+        }
+      } catch (error) {
+        console.error("Error fetching user's gifts: ", error);
+      }
+    };
+
+    fetchUserGifts();
+  }, [username]);
+
   // Function to check if the gift date is within a week from today
   const isWithinAWeek = (unixdate) => {
     const today = new Date().getTime();
@@ -52,12 +58,21 @@ function HomeScreen() {
   };
 
   // Filter and sort the gift cards
-  const giftsGivenThisWeek = fakeGiftCards
+  const giftsGivenThisWeek = userGifts
     .filter((giftCard) => isWithinAWeek(Number(giftCard.date)))
     .sort((a, b) => Number(a.date) - Number(b.date));
 
-  const upcomingGifts = fakeGiftCards
-    .filter((giftCard) => !isWithinAWeek(Number(giftCard.date)))
+  const isAfterToday = (unixdate) => {
+    const today = new Date().getTime();
+    return unixdate > today;
+  };
+
+  const upcomingGifts = userGifts
+    .filter(
+      (giftCard) =>
+        !isWithinAWeek(Number(giftCard.date)) &&
+        isAfterToday(Number(giftCard.date))
+    )
     .sort((a, b) => Number(a.date) - Number(b.date));
 
   const screenHeight = Dimensions.get("window").height;
@@ -71,8 +86,9 @@ function HomeScreen() {
       }}
     >
       <ScrollView width="100%">
-        <Text style={styles.pageHeader}>Gifts Given This Week:</Text>
-
+        {giftsGivenThisWeek.length > 0 && (
+          <Text style={styles.pageHeader}>Gifts Given This Week:</Text>
+        )}
         {giftsGivenThisWeek.map((giftCard, index) => (
           <GiftDetailsCard
             key={index}
@@ -85,7 +101,9 @@ function HomeScreen() {
             decidedGift={giftCard.decidedGift}
           />
         ))}
-        <Text style={styles.pageHeader}>Upcoming Gifts:</Text>
+        {upcomingGifts.length > 0 && (
+          <Text style={styles.pageHeader}>Upcoming Gifts:</Text>
+        )}
         {upcomingGifts.map((giftCard, index) => (
           <GiftDetailsCard
             key={index}
@@ -98,6 +116,12 @@ function HomeScreen() {
             decidedGift={giftCard.decidedGift}
           />
         ))}
+        {upcomingGifts.length === 0 && (
+          <Text style={{ color: "lightgray", marginTop: 10 }}>
+            No upcoming gifts to display. Try adding a gift by navigating the
+            add gift page at the bottom right.
+          </Text>
+        )}
       </ScrollView>
     </View>
   );
