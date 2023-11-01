@@ -132,6 +132,8 @@ export const styles = {
     justifyContent: "center",
     width: "100%",
     backgroundColor: "#7DAFD4",
+    borderColor: "red",
+    borderWidth: 2,
   },
   grayContainer: {
     flex: 1,

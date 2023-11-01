@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, TextInput, Text, Alert, Image } from "react-native";
+import { View, TextInput, Text, Alert, Image, Dimensions } from "react-native";
 import { collection, query, where, getDocs, addDoc } from "@firebase/firestore";
 import { db } from "../config/firebase";
 import { styles } from "../styles";
@@ -40,60 +40,70 @@ const SignUp = (props) => {
     }
   };
 
+  const screenHeight = Dimensions.get("window").height;
+  const marginTopAmnt = screenHeight * 0.09;
+
   return (
     <View style={[styles.container, { padding: 16 }]}>
-      <Image
-        source={require("../../assets/giftTrackrLogo.png")}
-        style={{
-          width: "33%",
-          aspectRatio: 1,
-          resizeMode: "contain",
-        }}
-      />
-      <Text style={styles.pageHeader}>Sign Up for GiftTrackr</Text>
-
-      <TextInput
-        style={styles.input}
-        onChangeText={setUsername}
-        value={username}
-        placeholder="Enter username"
-      />
-
-      <TextInput
-        style={styles.input}
-        onChangeText={setPassword}
-        value={password}
-        placeholder="Enter password"
-        secureTextEntry={true}
-      />
-
-      <TextInput
-        style={styles.input}
-        onChangeText={setPasswordConf}
-        value={passwordConf}
-        placeholder="Confirm password"
-        secureTextEntry={true}
-      />
-
-      <View style={styles.buttonsContainer}>
-        <CustomButton title="Submit" onPress={handleSubmit} />
-      </View>
-
       <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          marginTop: 0,
-          justifyContent: "center",
-        }}
+        style={[
+          styles.container,
+          { marginBottom: 0, marginTop: marginTopAmnt },
+        ]}
       >
-        <Text>Have an account? </Text>
-        <Text
-          style={{ color: styles.almostWhiteText }} // Using the text color style
-          onPress={() => props.onSwitchToLogin()}
+        <Text style={styles.pageHeader}>Sign Up for GiftTrackr</Text>
+
+        <TextInput
+          style={styles.input}
+          onChangeText={setUsername}
+          value={username}
+          placeholder="Enter username"
+        />
+
+        <TextInput
+          style={styles.input}
+          onChangeText={setPassword}
+          value={password}
+          placeholder="Enter password"
+          secureTextEntry={true}
+        />
+
+        <TextInput
+          style={styles.input}
+          onChangeText={setPasswordConf}
+          value={passwordConf}
+          placeholder="Confirm password"
+          secureTextEntry={true}
+        />
+
+        <View style={styles.buttonsContainer}>
+          <CustomButton title="Submit" onPress={handleSubmit} />
+        </View>
+
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginVertical: 0,
+            justifyContent: "center",
+          }}
         >
-          Log in
-        </Text>
+          <Text>Have an account? </Text>
+          <Text
+            style={{ color: styles.almostWhiteText }} // Using the text color style
+            onPress={() => props.onSwitchToLogin()}
+          >
+            Log in
+          </Text>
+        </View>
+        <Image
+          source={require("../../assets/giftTrackrLogo.png")}
+          style={{
+            width: "33%",
+            aspectRatio: 1,
+            resizeMode: "contain",
+          }}
+        />
       </View>
     </View>
   );
