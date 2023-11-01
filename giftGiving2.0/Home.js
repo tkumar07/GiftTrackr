@@ -81,13 +81,13 @@ function HomeScreen(props) {
   return (
     <View
       style={{
-        ...styles.container,
+        ...styles.grayContainer,
         marginTop: marginTopAmnt,
       }}
     >
       <ScrollView width="100%">
         {giftsGivenThisWeek.length > 0 && (
-          <Text style={styles.pageHeader}>Gifts Given This Week:</Text>
+          <Text style={styles.pageHeader}>Gifts Given This Week</Text>
         )}
         {giftsGivenThisWeek.map((giftCard, index) => (
           <GiftDetailsCard
@@ -102,7 +102,7 @@ function HomeScreen(props) {
           />
         ))}
         {upcomingGifts.length > 0 && (
-          <Text style={styles.pageHeader}>Upcoming Gifts:</Text>
+          <Text style={styles.pageHeader}>Upcoming Gifts</Text>
         )}
         {upcomingGifts.map((giftCard, index) => (
           <GiftDetailsCard

@@ -21,6 +21,7 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLogin, setShowLogin] = useState(true);
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
     setLoading(true);
@@ -32,6 +33,11 @@ export default function App() {
       setLoading(false);
     });
   }, []);
+
+  const handleSuccessfulLogin = (user) => {
+    setUsername(user);
+    setIsLoggedIn(true);
+  };
 
   const onSwitchToSignUp = () => {
     setShowLogin(false);
@@ -50,12 +56,12 @@ export default function App() {
         <View style={{ flex: 1, justifyContent: "center" }}>
           {showLogin ? (
             <Login
-              onSuccessfulLogin={() => setIsLoggedIn(true)}
+              onSuccessfulLogin={handleSuccessfulLogin}
               onSwitchToSignUp={onSwitchToSignUp}
             />
           ) : (
             <SignUp
-              onSuccessfulSignUp={() => setIsLoggedIn(true)}
+              onSuccessfulSignUp={handleSuccessfulLogin}
               onSwitchToLogin={onSwitchToLogin}
             />
           )}
@@ -67,13 +73,14 @@ export default function App() {
             barStyle={{ backgroundColor: styles.darkerAccent }}
             activeColor={styles.almostWhiteText}
             tabBarOptions={{
-              activeTintColor: "transparent", // Set the active tab color to transparent
-              inactiveTintColor: styles.grayedOutColor, // Set the unselected icon color
+              activeTintColor: "transparent",
+              inactiveTintColor: styles.grayedOutColor,
             }}
           >
             <Tab.Screen
               name="Home"
               component={Home}
+              initialParams={{ username: username }}
               options={{
                 tabBarIcon: ({ color }) => (
                   <MaterialCommunityIcons

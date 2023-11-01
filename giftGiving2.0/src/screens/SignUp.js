@@ -32,7 +32,7 @@ const SignUp = (props) => {
         Alert.alert("Success", "Account created successfully!");
 
         if (props && props.onSuccessfulSignUp) {
-          props.onSuccessfulSignUp();
+          props.onSuccessfulSignUp(username);
         }
       }
     } catch (error) {
