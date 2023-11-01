@@ -7,17 +7,17 @@ import AddGift from "./src/screens/AddGift";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { collection, onSnapshot } from "firebase/firestore"
-import { db } from "./src/config/firebase"
-import Login from "./src/screens/Login"
-import SignUp from "./src/screens/SignUp"
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from "./src/config/firebase";
+import Login from "./src/screens/Login";
+import SignUp from "./src/screens/SignUp";
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
   const [people, setPeople] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [signIn, setSignIn] = useState(false);
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
     setLoading(true);
@@ -30,11 +30,10 @@ export default function App() {
     });
   }, []);
 
-  const renderItem = ({ item }) => (
-    <View style={{ marginTop: 10 }}>
-      <Text>{item.username}</Text>    
-    </View>
-  );
+  const handleSuccessfulLogin = (user) => {
+    setUsername(user);
+    setIsLoggedIn(true);
+  };
 
   const styles = StyleSheet.create({
     container: {
@@ -50,11 +49,9 @@ export default function App() {
     <NavigationContainer>
       {!isLoggedIn ? (
         <View style={styles.container}>
-          <Login onSuccessfulLogin={() => setIsLoggedIn(true)} />
-          <SignUp onSuccessfulSignUp={() => setIsLoggedIn(true)} />
+          <Login onSuccessfulLogin={handleSuccessfulLogin} />
+          <SignUp onSuccessfulSignUp={handleSuccessfulLogin} />
         </View>
-
-         
       ) : (
         <>
           <Tab.Navigator
@@ -64,6 +61,7 @@ export default function App() {
           >
             <Tab.Screen
               name="Home"
+              initialParams={{ username: username }}
               component={Home}
               options={{
                 tabBarIcon: ({ color, size }) => (
@@ -76,7 +74,11 @@ export default function App() {
               component={CalendarScreen}
               options={{
                 tabBarIcon: ({ color, size }) => (
-                  <MaterialCommunityIcons name="calendar" color={color} size={26} />
+                  <MaterialCommunityIcons
+                    name="calendar"
+                    color={color}
+                    size={26}
+                  />
                 ),
               }}
             />

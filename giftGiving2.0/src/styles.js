@@ -37,7 +37,8 @@ export const styles = {
     shadowRadius: 2,
     elevation: 4,
     padding: 15,
-    margin: 15,
+    marginTop: 10,
+    marginBottom: 10,
   },
   cardContent: {
     padding: 5,
@@ -82,9 +83,12 @@ export const styles = {
     width: "80%",
   },
   pageHeader: {
+    width: "100%",
+    marginTop: 15,
     fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 10,
+    textAlign: "center",
+    marginBottom: 5,
   },
   subtitle: {
     fontSize: 20,

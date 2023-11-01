@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert } from 'react-native';
-import { collection, query, where, getDocs, addDoc } from '@firebase/firestore';
-import { db } from "../config/firebase"
+import React, { useState } from "react";
+import { View, TextInput, Button, Alert, Text } from "react-native";
+import { collection, query, where, getDocs } from "@firebase/firestore";
+import { db } from "../config/firebase";
 
-const Login  = (props) => {
-  const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
+const Login = (props) => {
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
 
   const handleSubmit = async () => {
     try {
@@ -16,7 +16,8 @@ const Login  = (props) => {
         const userData = querySnapshot.docs[0].data();
         if (userData.password === password) {
           if (props && props.onSuccessfulLogin) {
-            props.onSuccessfulLogin();
+            console.log("HELLO THERE ", username);
+            props.onSuccessfulLogin(username);
           }
           console.log("Login successful");
         } else {
@@ -31,24 +32,21 @@ const Login  = (props) => {
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', padding: 16 }}>
-      <Text>
-        LOGIN
-      </Text>
+    <View style={{ flex: 1, justifyContent: "center", padding: 16 }}>
+      <Text>LOGIN</Text>
       <TextInput
-        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+        style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
         onChangeText={setUsername}
         value={username}
         placeholder="Enter username"
       />
       <TextInput
-        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+        style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
         onChangeText={setPassword}
         value={password}
         placeholder="Enter password"
       />
       <Button title="Submit" onPress={handleSubmit} />
-
     </View>
   );
 };

@@ -1,70 +1,97 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, Alert } from "react-native";
+import { View, Text, ScrollView, Dimensions } from "react-native";
 import { GiftDetailsCard } from "./src/components/GiftDetailsCard";
 import { styles } from "./src/styles";
-import { getFirestore, collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { db } from "./src/config/firebase";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  doc,
+  getDoc,
+} from "firebase/firestore";
 
-function HomeScreen({ route, navigation }) {
-  const [giftCards, setGiftCards] = useState([]);
-
+function HomeScreen(props) {
+  const { username } = props.route.params;
+  const [userGifts, setUserGifts] = useState([]);
   useEffect(() => {
-    // Fetch the gift card data from Firestore when the component mounts
-    const db = getFirestore();
+    // Fetch user's gifts from Firebase
+    const fetchUserGifts = async () => {
+      try {
+        const usersRef = collection(db, "users");
+        const userQuery = query(usersRef, where("username", "==", username));
+        const userQuerySnapshot = await getDocs(userQuery);
 
-    async function fetchGiftCards() {
-      const giftsCollection = collection(db, "gifts");
-      const querySnapshot = await getDocs(giftsCollection);
+        if (!userQuerySnapshot.empty) {
+          const userData = userQuerySnapshot.docs[0].data();
+          const userGiftIDs = userData.gifts || [];
 
-      const giftData = [];
-      querySnapshot.forEach((doc) => {
-        giftData.push({ id: doc.id, ...doc.data() });
-      });
+          // Fetch gift details for each gift ID
+          const giftDetailsPromises = userGiftIDs.map(async (giftID) => {
+            const giftRef = doc(db, "gifts", giftID);
+            const giftDoc = await getDoc(giftRef);
+            if (giftDoc.exists()) {
+              return { ...giftDoc.data(), id: giftDoc.id };
+            }
+            return null;
+          });
 
-      setGiftCards(giftData);
-    }
+          // Wait for all promises to resolve and set the userGifts state
+          const giftsData = await Promise.all(giftDetailsPromises);
+          setUserGifts(giftsData.filter(Boolean));
+        }
+      } catch (error) {
+        console.error("Error fetching user's gifts: ", error);
+      }
+    };
 
-    fetchGiftCards();
+    fetchUserGifts();
+  }, [username]);
 
-    // Check if a new gift was added (passed from AddGift.js) and add it to the state
-    if (route.params && route.params.newGift) {
-      const newGift = route.params.newGift;
-      setGiftCards((gifts) => [...gifts, newGift]);
-    }
-  }, [route.params]);
+  // Function to check if the gift date is within a week from today
+  const isWithinAWeek = (unixdate) => {
+    const today = new Date().getTime();
+    const oneWeekBeforeToday = today - 7 * 24 * 60 * 60 * 1000;
 
-  const handleDelete = async (id) => {
-    // Display a confirmation alert before deleting
-    Alert.alert(
-      "Delete Gift",
-      "Are you sure you want to delete this gift?",
-      [
-        {
-          text: "No",
-          style: "cancel",
-        },
-        {
-          text: "Yes",
-          onPress: async () => {
-            const db = getFirestore();
-            const giftRef = doc(db, "gifts", id);
-
-            // Delete the selected gift card from Firestore
-            await deleteDoc(giftRef);
-
-            // Remove the deleted gift card from the state
-            setGiftCards(giftCards.filter((gift) => gift.id !== id));
-          },
-        },
-      ]
-    );
+    return unixdate >= oneWeekBeforeToday && unixdate <= today;
   };
 
+  // Filter and sort the gift cards
+  const giftsGivenThisWeek = userGifts
+    .filter((giftCard) => isWithinAWeek(Number(giftCard.date)))
+    .sort((a, b) => Number(a.date) - Number(b.date));
+
+  const isAfterToday = (unixdate) => {
+    const today = new Date().getTime();
+    return unixdate > today;
+  };
+
+  const upcomingGifts = userGifts
+    .filter(
+      (giftCard) =>
+        !isWithinAWeek(Number(giftCard.date)) &&
+        isAfterToday(Number(giftCard.date))
+    )
+    .sort((a, b) => Number(a.date) - Number(b.date));
+
+  const screenHeight = Dimensions.get("window").height;
+  const marginTopAmnt = screenHeight * 0.09;
+
   return (
-    <View style={{ ...styles.container, marginTop: 10 }}>
-      <Text style={styles.pageHeader}>Upcoming Gifts:</Text>
-      {giftCards.map((giftCard, index) => (
-        <View key={index}>
+    <View
+      style={{
+        ...styles.container,
+        marginTop: marginTopAmnt,
+      }}
+    >
+      <ScrollView width="100%">
+        {giftsGivenThisWeek.length > 0 && (
+          <Text style={styles.pageHeader}>Gifts Given This Week:</Text>
+        )}
+        {giftsGivenThisWeek.map((giftCard, index) => (
           <GiftDetailsCard
+            key={index}
             recipient={giftCard.recipient}
             date={giftCard.date}
             occasion={giftCard.occasion}
@@ -73,20 +100,29 @@ function HomeScreen({ route, navigation }) {
             dislikes={giftCard.dislikes}
             decidedGift={giftCard.decidedGift}
           />
-          <TouchableOpacity
-            style={styles.deleteButton}
-            onPress={() => handleDelete(giftCard.id)}
-          >
-            <Text style={styles.deleteButtonText}>Delete</Text>
-          </TouchableOpacity>
-        </View>
-      ))}
-      <TouchableOpacity
-        style={styles.addButton}
-        onPress={() => navigation.navigate('AddGift')}
-      >
-        <Text style={styles.addButtonText}>Add Gift</Text>
-      </TouchableOpacity>
+        ))}
+        {upcomingGifts.length > 0 && (
+          <Text style={styles.pageHeader}>Upcoming Gifts:</Text>
+        )}
+        {upcomingGifts.map((giftCard, index) => (
+          <GiftDetailsCard
+            key={index}
+            recipient={giftCard.recipient}
+            date={giftCard.date}
+            occasion={giftCard.occasion}
+            budget={giftCard.budget}
+            likes={giftCard.likes}
+            dislikes={giftCard.dislikes}
+            decidedGift={giftCard.decidedGift}
+          />
+        ))}
+        {upcomingGifts.length === 0 && (
+          <Text style={{ color: "lightgray", marginTop: 10 }}>
+            No upcoming gifts to display. Try adding a gift by navigating the
+            add gift page at the bottom right.
+          </Text>
+        )}
+      </ScrollView>
     </View>
   );
 }
