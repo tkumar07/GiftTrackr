@@ -1,6 +1,16 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  Alert,
+  Dimensions,
+} from "react-native";
+import { getFirestore, addDoc, collection } from "firebase/firestore";
+import { styles } from "../styles";
+
 
 function AddGift({ navigation }) {
   const [recipient, setRecipient] = useState("");
@@ -18,10 +28,33 @@ function AddGift({ navigation }) {
 
   const saveData = async () => {
     if (!recipient || !date || !isValidDate(date)) {
-      Alert.alert("Error", "Recipient and a valid date (MM/DD/YYYY) are required.");
+      Alert.alert(
+        "Error",
+        "Recipient and a valid date (MM/DD/YYYY) are required."
+      );
       return;
     }
 
+    // Parse the date string into separate components (month, day, year)
+    const [month, day, year] = date.split("/").map(Number);
+
+    // Get the current date
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1; // Month is zero-based
+    const currentDay = currentDate.getDate();
+
+    if (
+      month < 1 ||
+      month > 12 ||
+      year < currentYear ||
+      (year === currentYear && month < currentMonth) ||
+      (year === currentYear && month === currentMonth && day < currentDay)
+    ) {
+
+      Alert.alert("Error", "Please enter a valid date.");
+      return;
+    }
     const giftData = {
       recipient,
       date,
@@ -32,16 +65,14 @@ function AddGift({ navigation }) {
       decidedGift,
     };
 
+    const db = getFirestore();
+
     try {
-      // Get existing gift data from AsyncStorage
-      const existingGiftData = await AsyncStorage.getItem('giftData');
-      const parsedData = JSON.parse(existingGiftData) || [];
+      // Add a new document to the "gifts" collection in Firestore
+      const giftRef = await addDoc(collection(db, "gifts"), giftData);
 
-      // Add the new gift data to the existing data
-      parsedData.push(giftData);
-
-      // Store the updated data back in AsyncStorage
-      await AsyncStorage.setItem('giftData', JSON.stringify(parsedData));
+      // Get the document ID and add it to the gift data
+      giftData.id = giftRef.id;
 
       // Clear input fields
       setRecipient("");
@@ -52,16 +83,24 @@ function AddGift({ navigation }) {
       setDislikes("");
       setDecidedGift("");
 
-      // Navigate back to the home page
-      navigation.navigate('Home');
+      // Navigate back to the home page, passing the gift data
+      navigation.navigate("Home", { newGift: giftData });
     } catch (error) {
       console.error("Error saving gift data: ", error);
     }
   };
 
+  const screenHeight = Dimensions.get("window").height;
+  const marginTopAmnt = screenHeight * 0.09;
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.headerText}>Add a Gift</Text>
+    <View
+      style={{
+        ...styles.grayContainer,
+        marginTop: marginTopAmnt,
+      }}
+    >
+      <Text style={styles.pageHeader}>Add a Gift</Text>
       <TextInput
         style={styles.input}
         placeholder="Recipient"
@@ -111,28 +150,9 @@ function AddGift({ navigation }) {
         value={decidedGift}
         onChangeText={(text) => setDecidedGift(text)}
       />
-      <Button title="Save" onPress={saveData} />
+      <CustomButton title="Save" onPress={saveData} />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  headerText: {
-    fontSize: 14,
-    marginBottom: 10,
-  },
-  input: {
-    width: "80%",
-    borderColor: "gray",
-    borderWidth: 1,
-    padding: 10,
-    marginBottom: 10,
-  },
-});
 
 export default AddGift;

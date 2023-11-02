@@ -12,11 +12,18 @@ const GiftDetailsCard = ({
   dislikes,
   decidedGift,
 }) => {
+  const formatDate = (unixTimestamp) => {
+    const dateObject = new Date(unixTimestamp);
+    return dateObject.toDateString();
+  };
+
+  const formattedDate = formatDate(date);
+
   return (
     <Card containerStyle={styles.cardContainer}>
       <View style={styles.cardHeader}>
         <Text style={styles.subtitle}>{recipient}</Text>
-        <Text style={styles.date}>{date}</Text>
+        <Text style={styles.date}>{formattedDate}</Text>
       </View>
       <View style={styles.cardContent}>
         <Text style={styles.text}>{occasion}</Text>

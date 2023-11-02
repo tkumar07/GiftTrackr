@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-native";
+import { View, Text, StyleSheet, Dimensions, TextInput } from "react-native";
 import { Calendar } from "react-native-calendars";
 import moment from "moment";
 import { styles } from "../styles";
 import CustomButton from "../components/CustomButton";
-
 
 const CalendarScreen = () => {
   const [markedDates, setMarkedDates] = useState({});
@@ -69,12 +68,19 @@ const CalendarScreen = () => {
     }
   };
 
+  const screenHeight = Dimensions.get("window").height;
+  const marginTopAmnt = screenHeight * 0.09;
+
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        ...styles.grayContainer,
+        marginTop: marginTopAmnt,
+      }}
+    >
       <Text style={styles.pageHeader}>Calendar</Text>
       <View style={{ paddingVertical: 0, width: "100%" }}>
         <Calendar style={{
-          borderWidth: 2,
           borderColor: '#C6E9F7',
           backgroundColor: '#C6E9F7',
         }}
@@ -99,7 +105,7 @@ const CalendarScreen = () => {
                 value={newEventName}
                 onChangeText={(text) => setNewEventName(text)}
               />
-              <CustomButton title="Add Event" onPress={handleAddEvent} style={{ color: "green" }}/>
+              <CustomButton title="Add Event" onPress={handleAddEvent}/>
             </View>
           )}
         </View>

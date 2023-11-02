@@ -1,36 +1,42 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Alert, Image, Dimensions } from "react-native";
-import { collection, query, where, getDocs } from "@firebase/firestore";
+import { View, TextInput, Text, Alert, Image, Dimensions } from "react-native";
+import { collection, query, where, getDocs, addDoc } from "@firebase/firestore";
 import { db } from "../config/firebase";
 import { styles } from "../styles";
-import CustomButton from "../components/CustomButton";
+import CustomButton from "../components/CustomButton"; // Assuming CustomButton is used for consistency
 
-
-const Login = (props) => {
+const SignUp = (props) => {
   const [password, setPassword] = useState("");
+  const [passwordConf, setPasswordConf] = useState("");
   const [username, setUsername] = useState("");
 
   const handleSubmit = async () => {
     try {
+      if (password !== passwordConf) {
+        Alert.alert("Passwords do not match");
+        return;
+      }
+
       const usersRef = collection(db, "users");
       const q = query(usersRef, where("username", "==", username));
       const querySnapshot = await getDocs(q);
       if (!querySnapshot.empty) {
-        const userData = querySnapshot.docs[0].data();
-        if (userData.password === password) {
-          if (props && props.onSuccessfulLogin) {
-            console.log("HELLO THERE ", username);
-            props.onSuccessfulLogin(username);
-          }
-          console.log("Login successful");
-        } else {
-          Alert.alert("Login Error", "Incorrect password");
-        }
+        Alert.alert("Username exists");
       } else {
-        Alert.alert("Login Error", "Username not found");
+        await addDoc(usersRef, {
+          username: username,
+          password: password,
+          gifts: [],
+          totalBudget: 0,
+        });
+        Alert.alert("Success", "Account created successfully!");
+
+        if (props && props.onSuccessfulSignUp) {
+          props.onSuccessfulSignUp(username);
+        }
       }
     } catch (error) {
-      console.error("Error logging in: ", error);
+      Alert.alert("Error", "An error occurred during sign up");
     }
   };
 
@@ -45,7 +51,7 @@ const Login = (props) => {
           { marginBottom: 0, marginTop: marginTopAmnt },
         ]}
       >
-        <Text style={styles.pageHeader}>Log in to GiftTrackr</Text>
+        <Text style={styles.pageHeader}>Sign Up for GiftTrackr</Text>
 
         <TextInput
           style={styles.input}
@@ -53,31 +59,41 @@ const Login = (props) => {
           value={username}
           placeholder="Enter username"
         />
+
         <TextInput
           style={styles.input}
           onChangeText={setPassword}
           value={password}
           placeholder="Enter password"
-          secureTextEntry // Hides the password
+          secureTextEntry={true}
         />
-        <View style={[styles.buttonsContainer, { marginBottom: 0 }]}>
-          <CustomButton title="Log In" onPress={handleSubmit} />
+
+        <TextInput
+          style={styles.input}
+          onChangeText={setPasswordConf}
+          value={passwordConf}
+          placeholder="Confirm password"
+          secureTextEntry={true}
+        />
+
+        <View style={styles.buttonsContainer}>
+          <CustomButton title="Submit" onPress={handleSubmit} />
         </View>
+
         <View
           style={{
             flexDirection: "row",
             alignItems: "center",
-            marginTop: 20,
-            marginBottom: 0,
+            marginVertical: 0,
             justifyContent: "center",
           }}
         >
-          <Text>Don't have an account? </Text>
+          <Text>Have an account? </Text>
           <Text
-            style={{ color: styles.almostWhiteText }}
-            onPress={() => props.onSwitchToSignUp()}
+            style={{ color: styles.almostWhiteText }} // Using the text color style
+            onPress={() => props.onSwitchToLogin()}
           >
-            Sign up
+            Log in
           </Text>
         </View>
         <Image
@@ -86,7 +102,6 @@ const Login = (props) => {
             width: "33%",
             aspectRatio: 1,
             resizeMode: "contain",
-            marginTop: 0,
           }}
         />
       </View>
@@ -94,4 +109,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default SignUp;
