@@ -81,13 +81,13 @@ function HomeScreen(props) {
   return (
     <View
       style={{
-        ...styles.container,
+        ...styles.grayContainer,
         marginTop: marginTopAmnt,
       }}
     >
       <ScrollView width="100%">
         {giftsGivenThisWeek.length > 0 && (
-          <Text style={styles.pageHeader}>Gifts Given This Week:</Text>
+          <Text style={styles.pageHeader}>Gifts Given This Week</Text>
         )}
         {giftsGivenThisWeek.map((giftCard, index) => (
           <GiftDetailsCard
@@ -101,9 +101,7 @@ function HomeScreen(props) {
             decidedGift={giftCard.decidedGift}
           />
         ))}
-        {upcomingGifts.length > 0 && (
-          <Text style={styles.pageHeader}>Upcoming Gifts:</Text>
-        )}
+        <Text style={styles.pageHeader}>Upcoming Gifts</Text>
         {upcomingGifts.map((giftCard, index) => (
           <GiftDetailsCard
             key={index}
@@ -117,10 +115,12 @@ function HomeScreen(props) {
           />
         ))}
         {upcomingGifts.length === 0 && (
-          <Text style={{ color: "lightgray", marginTop: 10 }}>
-            No upcoming gifts to display. Try adding a gift by navigating the
-            add gift page at the bottom right.
-          </Text>
+          <View styles={styles.container}>
+            <Text style={{ color: "gray", margin: 10, fontSize: 18 }}>
+              No upcoming gifts to display. Try adding a gift by navigating the
+              add gift page at the bottom right!
+            </Text>
+          </View>
         )}
       </ScrollView>
     </View>

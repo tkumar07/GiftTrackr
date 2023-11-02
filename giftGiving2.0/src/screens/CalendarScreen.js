@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, Dimensions } from "react-native";
 import { Calendar } from "react-native-calendars";
+import { styles } from "../styles";
 
 const CalendarScreen = () => {
   const [markedDates, setMarkedDates] = useState({});
@@ -34,30 +35,22 @@ const CalendarScreen = () => {
     toggleDotOnSelectedDate();
   };
 
+  const screenHeight = Dimensions.get("window").height;
+  const marginTopAmnt = screenHeight * 0.09;
+
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        ...styles.grayContainer,
+        marginTop: marginTopAmnt,
+      }}
+    >
       <Text style={styles.pageHeader}>Calendar</Text>
-      <View style={styles.calendarContainer}>
+      <View style={{ paddingVertical: 0, width: "100%" }}>
         <Calendar markedDates={markedDates} onDayPress={handleDayPress} />
       </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-  },
-  pageHeader: {
-    fontSize: 24,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: 10,
-  },
-  calendarContainer: {
-    paddingVertical: 20,
-  },
-});
 
 export default CalendarScreen;

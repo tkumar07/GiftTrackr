@@ -4,12 +4,12 @@ import { View, Text, TextInput, StyleSheet, Button } from "react-native";
 function BudgetScreen() {
   // 1. Initialize budget to 0
   const [totalBudget, setTotalBudget] = useState(0);
-  const [amountSpent, setAmountSpent] = useState(0);  // assuming this might be used
+  const [amountSpent, setAmountSpent] = useState(0); // assuming this might be used
 
   // Dummy function to represent fetching gift data
   const getGiftDataCost = () => {
     // Placeholder value for now. In a real scenario, fetch the actual data.
-    return 50;  
+    return 50;
   };
 
   const updateBudget = () => {
