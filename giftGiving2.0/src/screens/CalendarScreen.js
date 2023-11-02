@@ -2,13 +2,16 @@ import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 import { Calendar } from "react-native-calendars";
 import moment from "moment";
+import { styles } from "../styles";
+import CustomButton from "../components/CustomButton";
+
 
 const CalendarScreen = () => {
   const [markedDates, setMarkedDates] = useState({});
   const [selectedDate, setSelectedDate] = useState(null);
   const [eventNames, setEventNames] = useState({});
   const [newEventName, setNewEventName] = useState("");
-  const dotColor = "blue";
+  const dotColor = '#C6E9F7';
 
   const events = {};
 
@@ -69,38 +72,34 @@ const CalendarScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.pageHeader}>Calendar</Text>
-      <View style={styles.calendarContainer}>
-        <Calendar markedDates={markedDates} onDayPress={handleDayPress} />
+      <View style={{ paddingVertical: 0, width: "100%" }}>
+        <Calendar style={{
+          borderWidth: 2,
+          borderColor: '#C6E9F7',
+          backgroundColor: '#C6E9F7',
+        }}
+
+  markedDates={markedDates} onDayPress={handleDayPress} enableSwipeMonths={true} />
       </View>
       {selectedDate && (
-        <View style={styles.agendaContainer}>
-          <Text style={styles.dateText}>
+        <View style={unique_styles.agendaContainer}>
+          <Text style={unique_styles.dateText}>
             {moment(selectedDate).format("MMMM D, YYYY")}
           </Text>
           {eventNames[selectedDate] && (
-            <Text style={styles.eventName}>{eventNames[selectedDate]}</Text>
+            <Text style={unique_styles.eventName}>{eventNames[selectedDate]}</Text>
           )}
           {eventNames[selectedDate] ? (
-            <TouchableOpacity
-              style={[styles.customButton, { backgroundColor: "red" }]}
-              onPress={handleRemoveEvent}
-            >
-              <Text style={styles.buttonText}>Remove Event</Text>
-            </TouchableOpacity>
+            <CustomButton title="Remove Event" onPress={handleRemoveEvent}/>
           ) : (
             <View>
               <TextInput
-                style={styles.eventInput}
-                placeholder="Event name"
+                style={styles.input}
+                placeholder="Event Name"
                 value={newEventName}
                 onChangeText={(text) => setNewEventName(text)}
               />
-              <TouchableOpacity
-                style={[styles.customButton, { backgroundColor: "green" }]}
-                onPress={handleAddEvent}
-              >
-                <Text style={styles.buttonText}>Add Event</Text>
-              </TouchableOpacity>
+              <CustomButton title="Add Event" onPress={handleAddEvent} style={{ color: "green" }}/>
             </View>
           )}
         </View>
@@ -109,7 +108,7 @@ const CalendarScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
+const unique_styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
@@ -129,6 +128,7 @@ const styles = StyleSheet.create({
   dateText: {
     fontSize: 20,
     fontWeight: "bold",
+    textAlign: "center",
     marginBottom: 10,
   },
   eventName: {
