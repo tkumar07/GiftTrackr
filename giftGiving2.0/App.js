@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View } from "react-native";
+import { StyleSheet, Text, View, FlatList } from "react-native";
 import Home from "./Home";
 import CalendarScreen from "./src/screens/CalendarScreen";
 import BudgetScreen from "./src/screens/BudgetScreen";
@@ -80,7 +80,6 @@ export default function App() {
               name="Home"
               initialParams={{ username: username }}
               component={Home}
-              initialParams={{ username: username }}
               options={{
                 tabBarIcon: ({ color }) => (
                   <MaterialCommunityIcons
@@ -137,6 +136,7 @@ export default function App() {
             />
             <Tab.Screen
               name="AddGift"
+              initialParams={{ username: username }}
               component={AddGift}
               options={{
                 tabBarIcon: ({ color }) => (
