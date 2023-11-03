@@ -118,6 +118,7 @@ export default function App() {
             <Tab.Screen
               name="Budget"
               component={BudgetScreen}
+              initialParams={{ username: username }} 
               options={{
                 tabBarIcon: ({ color }) => (
                   <MaterialCommunityIcons
