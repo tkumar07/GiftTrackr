@@ -1,18 +1,8 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  StyleSheet,
-  Alert,
-  Dimensions,
-} from "react-native";
-import { getFirestore, addDoc, collection } from "firebase/firestore";
-import { styles } from "../styles";
+import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
+import { getFirestore, addDoc, collection, query, where, getDocs, doc, setDoc } from "firebase/firestore";
 
-
-function AddGift({ navigation }) {
+function AddGift({ navigation, route }) {
   const [recipient, setRecipient] = useState("");
   const [date, setDate] = useState("");
   const [occasion, setOccasion] = useState("");
@@ -20,6 +10,7 @@ function AddGift({ navigation }) {
   const [likes, setLikes] = useState("");
   const [dislikes, setDislikes] = useState("");
   const [decidedGift, setDecidedGift] = useState("");
+  const { username } = route.params; // Added to get the username from the navigation route
 
   const isValidDate = (dateString) => {
     const regex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}$/;
@@ -28,36 +19,29 @@ function AddGift({ navigation }) {
 
   const saveData = async () => {
     if (!recipient || !date || !isValidDate(date)) {
-      Alert.alert(
-        "Error",
-        "Recipient and a valid date (MM/DD/YYYY) are required."
-      );
+      Alert.alert("Error", "Recipient and a valid date (MM/DD/YYYY) are required.");
       return;
     }
 
-    // Parse the date string into separate components (month, day, year)
-    const [month, day, year] = date.split("/").map(Number);
-
-    // Get the current date
+    const [month, day, year] = date.split('/').map(Number);
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
-    const currentMonth = currentDate.getMonth() + 1; // Month is zero-based
+    const currentMonth = currentDate.getMonth() + 1;
     const currentDay = currentDate.getDate();
 
-    if (
-      month < 1 ||
-      month > 12 ||
-      year < currentYear ||
-      (year === currentYear && month < currentMonth) ||
-      (year === currentYear && month === currentMonth && day < currentDay)
-    ) {
-
+    if (month < 1 || month > 12 || year < currentYear || (year === currentYear && month < currentMonth) || 
+      (year === currentYear && month === currentMonth && day < currentDay)) {
       Alert.alert("Error", "Please enter a valid date.");
       return;
     }
+
+    //Convert date to unix timestamp
+    const [monthIndex, dayIndex, yearIndex] = date.split("/").map(Number);
+    const timestamp = new Date(yearIndex, monthIndex - 1, dayIndex).getTime();
+
     const giftData = {
       recipient,
-      date,
+      date: timestamp,
       occasion,
       budget,
       likes,
@@ -68,13 +52,23 @@ function AddGift({ navigation }) {
     const db = getFirestore();
 
     try {
-      // Add a new document to the "gifts" collection in Firestore
       const giftRef = await addDoc(collection(db, "gifts"), giftData);
+      const giftId = giftRef.id;
+      giftData.id = giftId;
 
-      // Get the document ID and add it to the gift data
-      giftData.id = giftRef.id;
+      const usersRef = collection(db, "users");
+      const userQuery = query(usersRef, where("username", "==", username));
+      const userQuerySnapshot = await getDocs(userQuery);
 
-      // Clear input fields
+      if (!userQuerySnapshot.empty) {
+        const userData = userQuerySnapshot.docs[0].data();
+        const userGiftIDs = userData.gifts || [];
+        userGiftIDs.push(giftId);
+
+        const userDocRef = doc(db, "users", userQuerySnapshot.docs[0].id);
+        await setDoc(userDocRef, { gifts: userGiftIDs }, { merge: true });
+      }
+
       setRecipient("");
       setDate("");
       setOccasion("");
@@ -83,24 +77,15 @@ function AddGift({ navigation }) {
       setDislikes("");
       setDecidedGift("");
 
-      // Navigate back to the home page, passing the gift data
-      navigation.navigate("Home", { newGift: giftData });
+      navigation.navigate('Home', { newGift: giftData });
     } catch (error) {
       console.error("Error saving gift data: ", error);
     }
   };
 
-  const screenHeight = Dimensions.get("window").height;
-  const marginTopAmnt = screenHeight * 0.09;
-
   return (
-    <View
-      style={{
-        ...styles.grayContainer,
-        marginTop: marginTopAmnt,
-      }}
-    >
-      <Text style={styles.pageHeader}>Add a Gift</Text>
+    <View style={styles.container}>
+      <Text style={styles.headerText}>Add a Gift</Text>
       <TextInput
         style={styles.input}
         placeholder="Recipient"
@@ -150,9 +135,28 @@ function AddGift({ navigation }) {
         value={decidedGift}
         onChangeText={(text) => setDecidedGift(text)}
       />
-      <CustomButton title="Save" onPress={saveData} />
+      <Button title="Save" onPress={saveData} />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  headerText: {
+    fontSize: 14,
+    marginBottom: 10,
+  },
+  input: {
+    width: "80%",
+    borderColor: "gray",
+    borderWidth: 1,
+    padding: 10,
+    marginBottom: 10,
+  },
+});
 
 export default AddGift;

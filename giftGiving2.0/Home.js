@@ -1,20 +1,50 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ScrollView, Dimensions } from "react-native";
+import { View, Text, ScrollView, Dimensions, Alert } from "react-native";
 import { GiftDetailsCard } from "./src/components/GiftDetailsCard";
 import { styles } from "./src/styles";
 import { db } from "./src/config/firebase";
 import {
+  getFirestore,
   collection,
   query,
   where,
   getDocs,
   doc,
   getDoc,
+  deleteDoc,
 } from "firebase/firestore";
 
 function HomeScreen(props) {
   const { username } = props.route.params;
   const [userGifts, setUserGifts] = useState([]);
+
+  const handleDelete = async (id) => {
+    // Display a confirmation alert before deleting
+    Alert.alert(
+      "Delete Gift",
+      "Are you sure you want to delete this gift?",
+      [
+        {
+          text: "No",
+          style: "cancel",
+        },
+        {
+          text: "Yes",
+          onPress: async () => {
+            const db = getFirestore();
+            const giftRef = doc(db, "gifts", id);
+
+            // Delete the selected gift card from Firestore
+            await deleteDoc(giftRef);
+
+            // Remove the deleted gift card from the state
+            setUserGifts((prevGifts) => prevGifts.filter((gift) => gift.id !== id));
+          },
+        },
+      ]
+    );
+  };
+
   useEffect(() => {
     // Fetch user's gifts from Firebase
     const fetchUserGifts = async () => {
@@ -49,7 +79,6 @@ function HomeScreen(props) {
     fetchUserGifts();
   }, [username]);
 
-  // Function to check if the gift date is within a week from today
   const isWithinAWeek = (unixdate) => {
     const today = new Date().getTime();
     const oneWeekBeforeToday = today - 7 * 24 * 60 * 60 * 1000;
@@ -57,7 +86,6 @@ function HomeScreen(props) {
     return unixdate >= oneWeekBeforeToday && unixdate <= today;
   };
 
-  // Filter and sort the gift cards
   const giftsGivenThisWeek = userGifts
     .filter((giftCard) => isWithinAWeek(Number(giftCard.date)))
     .sort((a, b) => Number(a.date) - Number(b.date));
@@ -99,6 +127,7 @@ function HomeScreen(props) {
             likes={giftCard.likes}
             dislikes={giftCard.dislikes}
             decidedGift={giftCard.decidedGift}
+            onDelete={() => handleDelete(giftCard.id)} // Add onDelete prop
           />
         ))}
         <Text style={styles.pageHeader}>Upcoming Gifts</Text>
@@ -112,6 +141,7 @@ function HomeScreen(props) {
             likes={giftCard.likes}
             dislikes={giftCard.dislikes}
             decidedGift={giftCard.decidedGift}
+            onDelete={() => handleDelete(giftCard.id)} // Add onDelete prop
           />
         ))}
         {upcomingGifts.length === 0 && (
