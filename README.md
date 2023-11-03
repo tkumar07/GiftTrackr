@@ -38,7 +38,7 @@ To install React Native, use the following command:
 
 On your Android or iOS device, go to your respective app store (Google Play Store for Android or the Apple App Store for iOS).
 Search for "Expo Go" and install the Expo Go app on your device.
-Please ensure that you have Expo CLI, React Native, and the Expo Go app installed before following the specific installation instructions for your mobile app project. The ultimate goal is to deploy your app with a single button press, and in the near future, we'll work on automating the generation of binary distributions (APK for Android or IPA for iOS) from your codebase.
+Please ensure that you have Expo CLI, React Native, and the Expo Go app installed before following the specific installation instructions for your mobile app project.
 
 #### Dependencies
 - "@expo/webpack-config": "^19.0.0"
@@ -80,7 +80,7 @@ Please ensure that you have Expo CLI, React Native, and the Expo Go app installe
 
 Navigate to the project directory:
 
-`cd giftgiving2.0 `
+`cd giftGiving2.0 `
 
 Install project dependencies using npm. Run the following command:
 
