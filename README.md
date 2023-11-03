@@ -84,7 +84,7 @@ After the dependencies are installed, start the development server:
 
 `npx expo start `
 
-Scan the QR code on your phone with Expo Go downloaded on it and enjoy the app!
+Scan the QR code on your phone with Expo Go downloaded on it and enjoy the app! Make sure both your laptop and phone are connected to the same WiFi network.
 
 
 # Functionality
