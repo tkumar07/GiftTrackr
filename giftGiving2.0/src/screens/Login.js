@@ -1,14 +1,26 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Alert, Image, Dimensions } from "react-native";
+import {
+  View,
+  TextInput,
+  Button,
+  Alert,
+  Image,
+  Dimensions,
+  Text,
+} from "react-native";
 import { collection, query, where, getDocs } from "@firebase/firestore";
 import { db } from "../config/firebase";
 import { styles } from "../styles";
 import CustomButton from "../components/CustomButton";
 
-
 const Login = (props) => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleSubmit = async () => {
     try {
@@ -19,7 +31,7 @@ const Login = (props) => {
         const userData = querySnapshot.docs[0].data();
         if (userData.password === password) {
           if (props && props.onSuccessfulLogin) {
-            console.log("HELLO THERE ", username);
+            console.log("HELLO THERE", username);
             props.onSuccessfulLogin(username);
           }
           console.log("Login successful");
@@ -58,8 +70,17 @@ const Login = (props) => {
           onChangeText={setPassword}
           value={password}
           placeholder="Enter password"
-          secureTextEntry // Hides the password
+          secureTextEntry={!showPassword}
+          showPassword={showPassword}
+          toggleShowPassword={toggleShowPassword}
         />
+        {password.length > 0 && (
+          <Button
+            title={showPassword ? "Hide Password" : "Show Password"}
+            onPress={toggleShowPassword}
+            color="lightgray"
+          />
+        )}
         <View style={[styles.buttonsContainer, { marginBottom: 0 }]}>
           <CustomButton title="Log In" onPress={handleSubmit} />
         </View>
