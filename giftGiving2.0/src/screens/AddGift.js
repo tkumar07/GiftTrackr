@@ -35,9 +35,13 @@ function AddGift({ navigation, route }) {
       return;
     }
 
+    //Convert date to unix timestamp
+    const [monthIndex, dayIndex, yearIndex] = date.split("/").map(Number);
+    const timestamp = new Date(yearIndex, monthIndex - 1, dayIndex).getTime();
+
     const giftData = {
       recipient,
-      date,
+      date: timestamp,
       occasion,
       budget,
       likes,
