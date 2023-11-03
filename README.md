@@ -41,32 +41,32 @@ Search for "Expo Go" and install the Expo Go app on your device.
 Please ensure that you have Expo CLI, React Native, and the Expo Go app installed before following the specific installation instructions for your mobile app project. The ultimate goal is to deploy your app with a single button press, and in the near future, we'll work on automating the generation of binary distributions (APK for Android or IPA for iOS) from your codebase.
 
 #### Dependencies
-"@expo/webpack-config": "^19.0.0",
-"@react-native-async-storage/async-storage": "^1.19.4",
-"@react-native-community/masked-view": "^0.1.11",
-"@react-native-firebase/auth": "^18.6.0",
-"@react-native-firebase/firestore": "^18.6.0",
-"@react-navigation/bottom-tabs": "^6.5.10",
-"@react-navigation/material-bottom-tabs": "^6.2.18",
-"@react-navigation/native": "^6.1.9",
-"dotenv": "^16.3.1",
-"expo": "~49.0.15",
-"expo-status-bar": "~1.6.0",
-"firebase": "^10.5.2",
-"react": "18.2.0",
-"react-dom": "18.2.0",
-"react-native": "0.72.6",
-"react-native-calendars": "^1.1301.0",
-"react-native-elements": "^3.4.3",
-"react-native-gesture-handler": "^2.13.3",
-"react-native-reanimated": "^3.5.4",
-"react-native-safe-area-context": "^4.7.3",
-"react-native-screens": "^3.26.0",
-"react-native-section-list-get-item-layout": "^2.2.3",
-"react-native-vector-icons": "^10.0.0",
-"react-native-web": "~0.19.6"
-"@babel/core": "^7.20.0",
-"react-native-dotenv": "^3.4.9"
+- "@expo/webpack-config": "^19.0.0"
+- "@react-native-async-storage/async-storage": "^1.19.4"
+- "@react-native-community/masked-view": "^0.1.11"
+- "@react-native-firebase/auth": "^18.6.0"
+- "@react-native-firebase/firestore": "^18.6.0"
+- "@react-navigation/bottom-tabs": "^6.5.10"
+- "@react-navigation/material-bottom-tabs": "^6.2.18"
+- "@react-navigation/native": "^6.1.9"
+- "dotenv": "^16.3.1"
+- "expo": "~49.0.15"
+- "expo-status-bar": "~1.6.0"
+- "firebase": "^10.5.2"
+- "react": "18.2.0"
+- "react-dom": "18.2.0"
+- "react-native": "0.72.6"
+- "react-native-calendars": "^1.1301.0"
+- "react-native-elements": "^3.4.3"
+- "react-native-gesture-handler": "^2.13.3"
+- "react-native-reanimated": "^3.5.4"
+- "react-native-safe-area-context": "^4.7.3"
+- "react-native-screens": "^3.26.0"
+- "react-native-section-list-get-item-layout": "^2.2.3"
+- "react-native-vector-icons": "^10.0.0"
+- "react-native-web": "~0.19.6"
+- "@babel/core": "^7.20.0"
+- "react-native-dotenv": "^3.4.9"
 
 ## Installation Steps
 
