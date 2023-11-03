@@ -1,7 +1,10 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity, Alert } from "react-native";
 import { Card } from "react-native-elements";
 import { styles } from "../styles";
+import { deleteDoc } from "firebase/firestore";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { getFirestore, doc } from "firebase/firestore";
 
 const GiftDetailsCard = ({
   recipient,
@@ -11,6 +14,8 @@ const GiftDetailsCard = ({
   likes,
   dislikes,
   decidedGift,
+  id,
+  updateGifts,
 }) => {
   const formatDate = (unixTimestamp) => {
     const dateObject = new Date(unixTimestamp);
@@ -18,6 +23,29 @@ const GiftDetailsCard = ({
   };
 
   const formattedDate = formatDate(date);
+
+  const handleDelete = async (id) => {
+    Alert.alert("Delete Gift", "Are you sure you want to delete this gift?", [
+      {
+        text: "No",
+        style: "cancel",
+      },
+      {
+        text: "Yes",
+        onPress: async () => {
+          const db = getFirestore();
+          const giftRef = doc(db, "gifts", id);
+
+          try {
+            await deleteDoc(giftRef);
+            updateGifts();
+          } catch (error) {
+            console.log("Error deleting gift: ", error);
+          }
+        },
+      },
+    ]);
+  };
 
   return (
     <Card containerStyle={styles.cardContainer}>
@@ -52,6 +80,13 @@ const GiftDetailsCard = ({
           </View>
         </View>
       </View>
+
+      <TouchableOpacity
+        onPress={() => handleDelete(id)}
+        style={styles.deleteButton}
+      >
+        <MaterialCommunityIcons name="delete" size={24} color="gray" />
+      </TouchableOpacity>
     </Card>
   );
 };
