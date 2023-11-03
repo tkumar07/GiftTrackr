@@ -17,6 +17,11 @@ export const styles = {
     fontWeight: "bold",
     color: "#C6E9F7",
   },
+  deleteButton: {
+    position: "absolute",
+    bottom: 5,
+    right: 5,
+  },
   regularText: {
     fontSize: 16,
     color: "#C6E9F7",
@@ -65,7 +70,7 @@ export const styles = {
     borderRadius: 5,
     width: "90%",
     alignSelf: "center",
-    color: "#C6E9F7",
+    color: "#092936",
   },
 
   box: {

@@ -11,73 +11,49 @@ import {
   getDocs,
   doc,
   getDoc,
-  deleteDoc,
 } from "firebase/firestore";
+import { useFocusEffect } from "@react-navigation/native";
 
 function HomeScreen(props) {
   const { username } = props.route.params;
   const [userGifts, setUserGifts] = useState([]);
 
-  const handleDelete = async (id) => {
-    // Display a confirmation alert before deleting
-    Alert.alert(
-      "Delete Gift",
-      "Are you sure you want to delete this gift?",
-      [
-        {
-          text: "No",
-          style: "cancel",
-        },
-        {
-          text: "Yes",
-          onPress: async () => {
-            const db = getFirestore();
-            const giftRef = doc(db, "gifts", id);
+  const fetchUserGifts = async () => {
+    try {
+      const usersRef = collection(db, "users");
+      const userQuery = query(usersRef, where("username", "==", username));
+      const userQuerySnapshot = await getDocs(userQuery);
 
-            // Delete the selected gift card from Firestore
-            await deleteDoc(giftRef);
+      if (!userQuerySnapshot.empty) {
+        const userData = userQuerySnapshot.docs[0].data();
+        const userGiftIDs = userData.gifts || [];
+        if (userGiftIDs.empty) {
+          console.log("No gifts found");
+        }
+        const giftDetailsPromises = userGiftIDs.map(async (giftID) => {
+          const giftRef = doc(db, "gifts", giftID);
+          const giftDoc = await getDoc(giftRef);
+          if (giftDoc.exists()) {
+            return { ...giftDoc.data(), id: giftDoc.id };
+          } else {
+            console.log("Gift is deleted! ", giftID);
+          }
+          return null;
+        });
 
-            // Remove the deleted gift card from the state
-            setUserGifts((prevGifts) => prevGifts.filter((gift) => gift.id !== id));
-          },
-        },
-      ]
-    );
+        const giftsData = await Promise.all(giftDetailsPromises);
+        setUserGifts(giftsData.filter(Boolean));
+      }
+    } catch (error) {
+      console.error("Error fetching user's gifts: ", error);
+    }
   };
 
-  useEffect(() => {
-    // Fetch user's gifts from Firebase
-    const fetchUserGifts = async () => {
-      try {
-        const usersRef = collection(db, "users");
-        const userQuery = query(usersRef, where("username", "==", username));
-        const userQuerySnapshot = await getDocs(userQuery);
-
-        if (!userQuerySnapshot.empty) {
-          const userData = userQuerySnapshot.docs[0].data();
-          const userGiftIDs = userData.gifts || [];
-
-          // Fetch gift details for each gift ID
-          const giftDetailsPromises = userGiftIDs.map(async (giftID) => {
-            const giftRef = doc(db, "gifts", giftID);
-            const giftDoc = await getDoc(giftRef);
-            if (giftDoc.exists()) {
-              return { ...giftDoc.data(), id: giftDoc.id };
-            }
-            return null;
-          });
-
-          // Wait for all promises to resolve and set the userGifts state
-          const giftsData = await Promise.all(giftDetailsPromises);
-          setUserGifts(giftsData.filter(Boolean));
-        }
-      } catch (error) {
-        console.error("Error fetching user's gifts: ", error);
-      }
-    };
-
-    fetchUserGifts();
-  }, [username]);
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchUserGifts();
+    }, [props.navigation, username])
+  );
 
   const isWithinAWeek = (unixdate) => {
     const today = new Date().getTime();
@@ -103,16 +79,10 @@ function HomeScreen(props) {
     )
     .sort((a, b) => Number(a.date) - Number(b.date));
 
-  const screenHeight = Dimensions.get("window").height;
-  const marginTopAmnt = screenHeight * 0.09;
+  const marginTopAmnt = 45;
 
   return (
-    <View
-      style={{
-        ...styles.grayContainer,
-        marginTop: marginTopAmnt,
-      }}
-    >
+    <View style={{ ...styles.grayContainer, marginTop: marginTopAmnt }}>
       <ScrollView width="100%">
         {giftsGivenThisWeek.length > 0 && (
           <Text style={styles.pageHeader}>Gifts Given This Week</Text>
@@ -127,7 +97,8 @@ function HomeScreen(props) {
             likes={giftCard.likes}
             dislikes={giftCard.dislikes}
             decidedGift={giftCard.decidedGift}
-            onDelete={() => handleDelete(giftCard.id)} // Add onDelete prop
+            id={giftCard.id}
+            updateGifts={fetchUserGifts}
           />
         ))}
         <Text style={styles.pageHeader}>Upcoming Gifts</Text>
@@ -141,7 +112,8 @@ function HomeScreen(props) {
             likes={giftCard.likes}
             dislikes={giftCard.dislikes}
             decidedGift={giftCard.decidedGift}
-            onDelete={() => handleDelete(giftCard.id)} // Add onDelete prop
+            id={giftCard.id}
+            updateGifts={fetchUserGifts}
           />
         ))}
         {upcomingGifts.length === 0 && (
