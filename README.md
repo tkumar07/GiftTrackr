@@ -98,9 +98,10 @@ Scan the QR code on your phone with Expo Go downloaded on it and enjoy the app! 
 
 # Functionality
 
-- **Budget Tracking**: The app aggregates the total spent by summing the cost of each gift and displays the remaining budget by deducting this total from the user-entered budget.
 - **Gift Planning**: Users can keep track of what their friends like and when they plan to give them gifts.
-- **Purchase Links Storage**: Users can store links for purchasing the gifts.
+- **Gift Idea Storage**: Users can also store what they plan on giving and how much they are willing to spend. 
+- **Event Storage**: Users can add custom events to their calendar so they never forget a gift giving occassion.
+- **Budget Tracking**: The app aggregates the total spent by summing the cost of each gift and displays the remaining budget by deducting this total from the user-entered budget.
 - **First Budget Prompt**: A message prompts users to create their first budget if the value is set to zero.
 
 # Known Problems
