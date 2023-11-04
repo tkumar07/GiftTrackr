@@ -107,7 +107,8 @@ Scan the QR code on your phone with Expo Go downloaded on it and enjoy the app! 
 # Known Problems
 
 - **Negative Budget Values**: Currently, the app allows the budget value to go negative, which is not practical. There is a need to implement a feature to alert users when the remaining budget hits zero and to prevent adding more gifts until a new budget is set.
-- **Additional Screen Modifications**: To incorporate the budget cap functionality, changes across various screens in the app may be necessary for a consistent user experience.
+- **Refreshing Budget Values**: Budget values are not updated immediately after deleting a gift, but rather the app needs to be reloaded to reflect changes in the total spent value on the budget page. 
+- **Screen Size Responsiveness**: The app is not very user friendly if you are on a very small screen. Screen responsiveness is in the process of being implemented. 
 
 # Contributing
 
