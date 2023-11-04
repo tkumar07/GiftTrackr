@@ -120,4 +120,4 @@ To contribute to the app development:
 4. Push the branch to the origin.
 5. Submit a pull request.
 
-The contribution guide is outlined for developers interested in improving the app, suggesting that community contributions are welcomed and appreciated.
+Community contributions are welcomed and appreciated.
