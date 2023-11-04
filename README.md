@@ -28,8 +28,7 @@ Ensure the installation of Node.js, Expo CLI, React Native CLI, and the Expo Go 
 A list of dependencies is provided, including "@expo/webpack-config", "@react-native-async-storage/async-storage", "firebase", "react", "react-native", and many others that are vital for the app's functionality.
 
 ## Installation Steps
-Step-by-step instructions guide the user through cloning the repository, navigating to the project directory, installing dependencies, and starting the development server to run the app.
-=======
+
 ### Expo CLI and React Native:
 
 If you don't already have Node.js installed, download and install it from nodejs.org.
