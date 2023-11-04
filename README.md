@@ -22,7 +22,7 @@ The app caters to anyone looking to give thoughtful and meaningful gifts to thei
 Follow the prerequisites and step-by-step guide to set up the app environment and start using the Gift Giving Tracker.
 
 ## Prerequisites
-Ensure the installation of Node.js, Expo CLI, React Native CLI, and the Expo Go app on your mobile device before proceeding.
+Ensure the installation of Node.js, Expo CLI, React Native, and the Expo Go app on your mobile device before proceeding.
 
 #### Dependencies
 A list of dependencies is provided, including "@expo/webpack-config", "@react-native-async-storage/async-storage", "firebase", "react", "react-native", and many others that are vital for the app's functionality.
