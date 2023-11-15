@@ -72,6 +72,10 @@ export const styles = {
     alignSelf: "center",
     color: "#092936",
   },
+  inputContainer: {
+    position: "relative",
+    width: "100%",
+  },
 
   box: {
     flexDirection: "row",
@@ -149,6 +153,9 @@ export const styles = {
     fontSize: 16,
     color: "#777",
   },
+  eyeIcon: {
+    position: "relative",
+  },
   headerText: {
     fontSize: 24,
   },
@@ -160,6 +167,12 @@ export const styles = {
     textAlign: "center",
     marginBottom: 5,
     color: "#092936",
+  },
+  passwordContainer: {
+    position: "absolute",
+    right: 30,
+    top: 20,
+    zIndex: 1,
   },
   subtitle: {
     fontSize: 20,

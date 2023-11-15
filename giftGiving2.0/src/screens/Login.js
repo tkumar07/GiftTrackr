@@ -12,6 +12,7 @@ import { collection, query, where, getDocs } from "@firebase/firestore";
 import { db } from "../config/firebase";
 import { styles } from "../styles";
 import CustomButton from "../components/CustomButton";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const Login = (props) => {
   const [password, setPassword] = useState("");
@@ -71,28 +72,33 @@ const Login = (props) => {
           value={username}
           placeholder="Enter username"
         />
-
-        <TextInput
-          style={styles.input}
-          onChangeText={setPassword}
-          value={password}
-          placeholder="Enter password"
-          secureTextEntry={!showPassword}
-        />
-        <Text style={{ color: "red", marginTop: 5 }}>{errorMessage}</Text>
-
-        {password.length > 0 && (
-          <Button
-            title={showPassword ? "Hide Password" : "Show Password"}
-            onPress={toggleShowPassword}
-            color="lightgray"
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            onChangeText={setPassword}
+            value={password}
+            placeholder="Enter password"
+            secureTextEntry={!showPassword}
+            showPassword={showPassword}
+            toggleShowPassword={toggleShowPassword}
           />
-        )}
+          {password.length > 0 && (
+            <View style={styles.passwordContainer}>
+              <MaterialCommunityIcons
+                name={showPassword ? "eye-off" : "eye"}
+                size={20}
+                color="black"
+                onPress={toggleShowPassword}
+                style={styles.eyeIcon}
+              />
+            </View>
+          )}
+        </View>
+        <Text style={{ color: "red", marginTop: 5 }}>{errorMessage}</Text>
 
         <View style={[styles.buttonsContainer, { marginBottom: 0 }]}>
           <CustomButton title="Log In" onPress={handleSubmit} />
         </View>
-
         <View
           style={{
             flexDirection: "row",
