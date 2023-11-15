@@ -3,17 +3,23 @@ import { View, TextInput, Text, Alert, Image, Dimensions } from "react-native";
 import { collection, query, where, getDocs, addDoc } from "@firebase/firestore";
 import { db } from "../config/firebase";
 import { styles } from "../styles";
-import CustomButton from "../components/CustomButton"; // Assuming CustomButton is used for consistency
+import CustomButton from "../components/CustomButton";
 
 const SignUp = (props) => {
   const [password, setPassword] = useState("");
   const [passwordConf, setPasswordConf] = useState("");
   const [username, setUsername] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async () => {
     try {
+      if (!username.trim() || !password.trim() || !passwordConf.trim()) {
+        setErrorMessage("All fields are required");
+        return;
+      }
+
       if (password !== passwordConf) {
-        Alert.alert("Passwords do not match");
+        setErrorMessage("Passwords do not match");
         return;
       }
 
@@ -21,7 +27,7 @@ const SignUp = (props) => {
       const q = query(usersRef, where("username", "==", username));
       const querySnapshot = await getDocs(q);
       if (!querySnapshot.empty) {
-        Alert.alert("Username exists");
+        setErrorMessage("Username exists");
       } else {
         await addDoc(usersRef, {
           username: username,
@@ -29,6 +35,7 @@ const SignUp = (props) => {
           gifts: [],
           totalBudget: 0,
         });
+        setErrorMessage("");
         Alert.alert("Success", "Account created successfully!");
 
         if (props && props.onSuccessfulSignUp) {
@@ -58,23 +65,25 @@ const SignUp = (props) => {
           onChangeText={setUsername}
           value={username}
           placeholder="Enter username"
+          placeholderTextColor={errorMessage ? "red" : "#888"}
         />
-
         <TextInput
           style={styles.input}
           onChangeText={setPassword}
           value={password}
           placeholder="Enter password"
           secureTextEntry={true}
+          placeholderTextColor={errorMessage ? "red" : "#888"}
         />
-
         <TextInput
           style={styles.input}
           onChangeText={setPasswordConf}
           value={passwordConf}
           placeholder="Confirm password"
           secureTextEntry={true}
+          placeholderTextColor={errorMessage ? "red" : "#888"}
         />
+        <Text style={{ color: "red", marginTop: 0 }}>{errorMessage}</Text>
 
         <View style={styles.buttonsContainer}>
           <CustomButton title="Submit" onPress={handleSubmit} />
@@ -90,7 +99,7 @@ const SignUp = (props) => {
         >
           <Text>Have an account? </Text>
           <Text
-            style={{ color: styles.almostWhiteText }} // Using the text color style
+            style={{ color: styles.almostWhiteText }}
             onPress={() => props.onSwitchToLogin()}
           >
             Log in
