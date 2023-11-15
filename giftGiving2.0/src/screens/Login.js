@@ -17,6 +17,7 @@ const Login = (props) => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -24,6 +25,11 @@ const Login = (props) => {
 
   const handleSubmit = async () => {
     try {
+      if (!username.trim() || !password.trim()) {
+        setErrorMessage("All fields are required");
+        return;
+      }
+
       const usersRef = collection(db, "users");
       const q = query(usersRef, where("username", "==", username));
       const querySnapshot = await getDocs(q);
@@ -36,10 +42,10 @@ const Login = (props) => {
           }
           console.log("Login successful");
         } else {
-          Alert.alert("Login Error", "Incorrect password");
+          setErrorMessage("Incorrect password");
         }
       } else {
-        Alert.alert("Login Error", "Username not found");
+        setErrorMessage("Username not found");
       }
     } catch (error) {
       console.error("Error logging in: ", error);
@@ -65,15 +71,16 @@ const Login = (props) => {
           value={username}
           placeholder="Enter username"
         />
+
         <TextInput
           style={styles.input}
           onChangeText={setPassword}
           value={password}
           placeholder="Enter password"
           secureTextEntry={!showPassword}
-          showPassword={showPassword}
-          toggleShowPassword={toggleShowPassword}
         />
+        <Text style={{ color: "red", marginTop: 5 }}>{errorMessage}</Text>
+
         {password.length > 0 && (
           <Button
             title={showPassword ? "Hide Password" : "Show Password"}
@@ -81,9 +88,11 @@ const Login = (props) => {
             color="lightgray"
           />
         )}
+
         <View style={[styles.buttonsContainer, { marginBottom: 0 }]}>
           <CustomButton title="Log In" onPress={handleSubmit} />
         </View>
+
         <View
           style={{
             flexDirection: "row",
