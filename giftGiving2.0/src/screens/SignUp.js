@@ -4,12 +4,18 @@ import { collection, query, where, getDocs, addDoc } from "@firebase/firestore";
 import { db } from "../config/firebase";
 import { styles } from "../styles";
 import CustomButton from "../components/CustomButton";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const SignUp = (props) => {
   const [password, setPassword] = useState("");
   const [passwordConf, setPasswordConf] = useState("");
   const [username, setUsername] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleSubmit = async () => {
     try {
@@ -67,22 +73,53 @@ const SignUp = (props) => {
           placeholder="Enter username"
           placeholderTextColor={errorMessage ? "red" : "#888"}
         />
-        <TextInput
-          style={styles.input}
-          onChangeText={setPassword}
-          value={password}
-          placeholder="Enter password"
-          secureTextEntry={true}
-          placeholderTextColor={errorMessage ? "red" : "#888"}
-        />
-        <TextInput
-          style={styles.input}
-          onChangeText={setPasswordConf}
-          value={passwordConf}
-          placeholder="Confirm password"
-          secureTextEntry={true}
-          placeholderTextColor={errorMessage ? "red" : "#888"}
-        />
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            onChangeText={setPassword}
+            value={password}
+            placeholder="Enter password"
+            placeholderTextColor={errorMessage ? "red" : "#888"}
+            secureTextEntry={!showPassword}
+            showPassword={showPassword}
+            toggleShowPassword={toggleShowPassword}
+          />
+          {password.length > 0 && (
+            <View style={styles.passwordContainer}>
+              <MaterialCommunityIcons
+                name={showPassword ? "eye-off" : "eye"}
+                size={20}
+                color="black"
+                onPress={toggleShowPassword}
+                style={styles.eyeIcon}
+              />
+            </View>
+          )}
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            onChangeText={setPasswordConf}
+            value={passwordConf}
+            placeholder="Confirm password"
+            placeholderTextColor={errorMessage ? "red" : "#888"}
+            secureTextEntry={!showPassword}
+            showPassword={showPassword}
+            toggleShowPassword={toggleShowPassword}
+          />
+          {password.length > 0 && (
+            <View style={styles.passwordContainer}>
+              <MaterialCommunityIcons
+                name={showPassword ? "eye-off" : "eye"}
+                size={20}
+                color="black"
+                onPress={toggleShowPassword}
+                style={styles.eyeIcon}
+              />
+            </View>
+          )}
+        </View>
+
         <Text style={{ color: "red", marginTop: 0 }}>{errorMessage}</Text>
 
         <View style={styles.buttonsContainer}>
