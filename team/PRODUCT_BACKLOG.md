@@ -1,6 +1,6 @@
 New stories based on MVP feedback:
 
-Story #1 - Gift Suggestions
+Story #1 - Gift Suggestions:
 All users of the app will benefit from seeing potential gift suggestions
 Either a) a simple chatbot in which you input the likes, dislikes, and budget, and it spits back a few suggestions, or b) a "generate suggestions" button in the cards which will automatically get data from firebase and give you suggestions
 This story is valuable because even though people may know likes and dislikes of the people they are buying for, it still may be hard to decide on a single gift to buy for them. This suggestion functionality will greatly help users find gifts to give
@@ -24,7 +24,7 @@ This feature adds user convenience by addressing the common scenario where users
 It takes about 2 to 4 days.
 Users can successfully edit gift details post-addition. Modified data is accurately reflected in the app. The changes made by users are correctly updated in the Firebase database.
 
-Story #4: User Story: History of Gifts Given Feature
+Story #4: User Story: History of Gifts Given Feature:
 Who It's For: All users of the app who want to keep track of the gifts they've previously given to ensure uniqueness and thoughtfulness in future gift-giving.
 Desired Functionality: A feature that allows users to record and view a history of gifts they have given, including details such as the recipient's name, the occasion, the gift, and the date.
 Value of the Story: This feature is valuable as it helps users avoid repeating gifts and maintains the personal touch in their gift-giving. Remembering past gifts can be challenging, and this feature simplifies this process, aiding in making more thoughtful and unique gift choices.
