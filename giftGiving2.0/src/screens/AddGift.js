@@ -95,7 +95,6 @@ function AddGift({ navigation, route }) {
       setDislikes("");
       setDecidedGift("");
 
-
       navigation.navigate("Home", { newGift: giftData });
     } catch (error) {
       console.error("Error saving gift data: ", error);
