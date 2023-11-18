@@ -1,6 +1,7 @@
 Date of Retrospective: 10/26/23 
 
 Led by: Shang-Hsun Yang
+
 Present: Marie Karpinska, Shang-Hsun Yang, Archit Gupta, Tanish Kumar, Ben Yang (2/5 members virtual)
 
 ## Overarching Goal: 
@@ -14,3 +15,6 @@ We will measure our progress by the amount of comments or revisions on PR to sho
 
 ## Other Notes:
 Lastly, we want to acknowledge the great job everyone has done. All 5 of us came together with no app building experience and made this awesome functional gift tracker. Almost all of the pages of our MVP were working with nothing hardcoded, which is especially impressive given how much of that was not present in the other MVPs. Great job, team!
+
+## Outcome:
+In our retrospective meeting, we discussed and agreed upon key changes to enhance our app development process. Our overarching goal remains focused on continuous improvement and meeting acceptance criteria for issues. To achieve this, we've identified the need for improved communication and review processes. Team members will communicate more effectively when facing challenges, accelerate the review of pull requests, and ensure thorough testing of acceptance criteria before making a pull request. Additionally, we've implemented measures such as assigning a reviewer upon PR creation. To gauge our progress, we'll be tracking the number of revisions on PRs, monitoring the average time from PR creation to review, and encouraging the posting of screenshots demonstrating the feature's functionality when approving a pull request. These changes aim to foster a more efficient and collaborative development environment.
