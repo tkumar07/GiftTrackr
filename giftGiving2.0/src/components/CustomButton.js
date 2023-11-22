@@ -1,7 +1,7 @@
 import React from "react";
 import { Pressable, Text } from "react-native";
 
-export default CustomButton = ({ title, onPress }) => {
+const CustomButton = ({ title, onPress }) => { // Declare the CustomButton component
   return (
     <Pressable
       style={({ pressed }) => [
@@ -31,3 +31,5 @@ export default CustomButton = ({ title, onPress }) => {
     </Pressable>
   );
 };
+
+export default CustomButton; // Export the component
