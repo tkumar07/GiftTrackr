@@ -12,6 +12,65 @@ export const styles = {
   darkerAccent: "#092936",
   grayedOutColor: "#294c59",
 
+  // Gift History Card Styles
+  giftHistoryCard: {
+    width: "92%",
+    borderRadius: 10,
+    borderWidth: 0,
+    shadowColor: "rgba(0, 0, 0, 0.3)",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 4,
+    padding: 15,
+    marginTop: 10,
+    marginBottom: 10,
+    backgroundColor: "#fff", // Assuming cards are white
+  },
+  giftHistoryCardText: {
+    fontSize: 16,
+    marginBottom: 5,
+    color: "#092936", // Assuming text is the darker accent color
+  },
+  giftHistoryCardRecipient: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#C6E9F7",
+    marginBottom: 5,
+  },
+  giftHistoryCardDate: {
+    fontSize: 16,
+    color: "#777",
+    marginBottom: 5,
+  },
+  giftHistoryCardOccasion: {
+    fontSize: 16,
+    marginBottom: 5,
+    color: "#092936",
+  },
+  giftHistoryCardBudget: {
+    fontSize: 16,
+    marginBottom: 5,
+    color: "#092936",
+  },
+  giftHistoryCardLikes: {
+    fontSize: 16,
+    marginBottom: 5,
+    color: "#092936",
+  },
+  giftHistoryCardDislikes: {
+    fontSize: 16,
+    marginBottom: 5,
+    color: "#092936",
+  },
+  giftHistoryCardDecidedGift: {
+    fontSize: 16,
+    marginBottom: 5,
+    color: "#092936",
+  },
   title: {
     fontSize: 20,
     fontWeight: "bold",
