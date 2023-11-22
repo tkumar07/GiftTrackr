@@ -133,14 +133,15 @@ export default function App() {
     giftsReturned.forEach(async (gift) => {
       console.log("new gift")
       console.log(gift)
-      const notificationTime = new Date((gift.date - daysBeforeEvent * 24 * 60 * 60) * 1000); // 3 days before
-      console.log("notifcation time: " + notificationTime.getDate);
+      const notificationTime = new Date(gift.date - (daysBeforeEvent * 24 * 60 * 60 * 1000));
+      console.log("notifcation time in DB: " + gift.date);
+      console.log("notifcation time: " + notificationTime.getDate());
       console.log(new Date());
       if(notificationTime > new Date()) { // Only schedule if the date is in the future
         await ExpoNotifications.scheduleNotificationAsync({
           content: {
             title: "Upcoming Gift Reminder",
-            body: `Don't forget the gift scheduled for ${gift.name}`,
+            body: `Don't forget the gift scheduled for ${gift.recipient}`,
           },
           trigger: notificationTime,
         });
