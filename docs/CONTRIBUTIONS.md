@@ -30,11 +30,12 @@
 
 | Name            | Pull Requests Made | Pull Requests Reviewed |
 |-----------------|--------------------|-------------------------|
-| Marie Karpinska | 9 (excluding 3)   | 9                       |
-| Archit Gupta    | 3 (excluding 3)    | 1                       |
-| Benjamin Yang   | 4 (excluding 1)    | 8                       |
+| Marie Karpinska | 9                 | 9                       |
+| Archit Gupta    | 3                 | 1                       |
+| Benjamin Yang   | 4            | 8                       |
 | Shang-Hsun Yang | 4                  | 1                       |
 | Tanish Kumar    | 7                  | 6                       |
 
-* Excluded any pull requests for merging branches into branches other than main, updating markdown documents, and duplicate PRs.
-
+* Excluded 3 of Marie's PRs --> 2 were merging her branches together and one was a duplicate
+* Excluded 3 of Archit's PRs --> 2 were updates to markdown files and #38 was a duplicate of #48
+* Excluded 1 of Ben's PRs --> updating markdown file
