@@ -79,3 +79,45 @@ Here is a summary of important design decisions made for the GiftTrackr App:
 
 2. **Success Indicators:**
    - Gifts appear when a gift is added on the home screen and disappear following a gift being deleted displaying successful actions.
+
+Here's the additional content you can add to your `design.md` to document the new "History of Gifts Given" feature:
+
+---
+
+# History of Gifts Given Feature
+
+The "History of Gifts Given" feature is an enhancement to the GiftTrackr app designed to enrich the user experience by providing a comprehensive view of past gifting activities.
+
+## User Story
+
+**Who It's For:** This feature serves all app users who wish to maintain a record of their gift-giving history, ensuring each gift is unique and thoughtful.
+
+**Desired Functionality:** Users can log and revisit a history of gifts given, complete with details such as recipient, occasion, gift, and date.
+
+**Value of the Story:** It prevents the repetition of gifts and supports the personal touch in gift-giving. By simplifying the tracking of past gifts, it helps users make informed and distinctive gift choices.
+
+**Work Estimate:** Estimated development time is 4-6 hours, which includes designing a user-friendly interface and integration with the existing app's data structures.
+
+## Acceptance Criteria
+
+1. **Input and Storage:** Users should be able to easily enter and save details of gifts given.
+2. **Display and Navigation:** The history should be displayed in an organized manner, allowing for easy navigation.
+3. **Integration:** The feature should blend seamlessly with current app functions, such as reminders and budgeting tools.
+4. **Privacy and Security:** User data should be protected according to privacy and security best practices.
+5. **Accessibility:** Users should be able to quickly consult their gift history during the planning stages of new gifts.
+
+## Implementation Details
+
+- **Design Considerations:** A clean, accessible UI has been created, adhering to the app's design language.
+- **Data Handling:** Gift history is managed through Firestore, leveraging the database's real-time capabilities.
+- **Security Measures:** Appropriate security rules have been implemented in Firestore to protect user data.
+
+## UX/UI Enhancements
+
+- **Chronological Sorting:** The gift history is displayed chronologically for efficient organization.
+- **Form Field Validation:** Input fields in the gift entry form include validation to prevent user errors.
+- **Feedback Mechanisms:** Users receive instant feedback on successful additions or errors during gift entry.
+
+---
+
+This section outlines the purpose, functionality, and user value of the "History of Gifts Given" feature and its integration into the GiftTrackr app. It serves as a clear guide for both the development team and stakeholders on what to expect from this new feature and the benefits it brings to the overall app experience.
