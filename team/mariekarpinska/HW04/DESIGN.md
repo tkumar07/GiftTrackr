@@ -120,4 +120,3 @@ The "History of Gifts Given" feature is an enhancement to the GiftTrackr app des
 
 ---
 
-This section outlines the purpose, functionality, and user value of the "History of Gifts Given" feature and its integration into the GiftTrackr app. It serves as a clear guide for both the development team and stakeholders on what to expect from this new feature and the benefits it brings to the overall app experience.
