@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, FlatList, Platform } from "react-native";
 import Home from "./Home";
 import CalendarScreen from "./src/screens/CalendarScreen";
 import BudgetScreen from "./src/screens/BudgetScreen";
+import GiftHistoryScreen from "./src/screens/GiftHistoryScreen";
 import AddGift from "./src/screens/AddGift";
 import Notifications from "./src/components/Notification";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
@@ -313,14 +314,23 @@ export default function App() {
                 ),
               }}
             />
-
             <Tab.Screen
-              name="Notifications"
-              component={Notifications}
+              name="GiftHistory"
+              component={GiftHistoryScreen}
               initialParams={{ username: username }}
               options={{
                 tabBarIcon: ({ color }) => (
                   <MaterialCommunityIcons
+                    name="history" // Choose an appropriate icon
+                    color={color}
+                    size={26}
+                  />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Notifications"
+              component={Notifications}
                     name="bell-outline"
                     color={styles.almostWhiteText}
                     size={26}
@@ -340,3 +350,6 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+
+
