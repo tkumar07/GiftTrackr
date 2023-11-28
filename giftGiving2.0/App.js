@@ -331,15 +331,13 @@ export default function App() {
             <Tab.Screen
               name="Notifications"
               component={Notifications}
+              initialParams={{ username: username }}
+              options={{
+                tabBarIcon: ({ color = 'defaultColorHere' }) => (
+                  <MaterialCommunityIcons
                     name="bell-outline"
-                    color={styles.almostWhiteText}
+                    color={color}
                     size={26}
-                    style={{
-                      color:
-                        color === styles.almostWhiteText
-                          ? styles.almostWhiteText
-                          : styles.grayedOutColor,
-                    }}
                   />
                 ),
               }}
