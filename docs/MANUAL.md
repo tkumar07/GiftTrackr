@@ -37,7 +37,7 @@ The GiftTrackr App is designed to help users plan and organize their gift-giving
 
    - View and update the past history of your gifts given
 
-<img width="125" alt="https://github.com/ucsb-cs184-f23/pj-react-03/assets/40641696/3785ebed-5d47-40ec-a853-ca8d3c590328">
+<img width="125" src="https://github.com/ucsb-cs184-f23/pj-react-03/assets/40641696/3785ebed-5d47-40ec-a853-ca8d3c590328">
 
 ## Intended Audience
 
