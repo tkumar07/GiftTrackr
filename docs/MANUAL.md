@@ -35,6 +35,11 @@ The GiftTrackr App is designed to help users plan and organize their gift-giving
 
    - Facilitates thoughtful gift selection based on recipient preferences.
 
+   - View and update the past history of your gifts given
+
+![IMG_4290 2](https://github.com/ucsb-cs184-f23/pj-react-03/assets/40641696/3785ebed-5d47-40ec-a853-ca8d3c590328)
+
+
 ## Intended Audience
 
 GiftTrackr is suitable for a wide range of users, catering to anyone who wants to enhance their gift-giving experience by staying organized, managing budgets, and ensuring each gift is meaningful and considerate.
