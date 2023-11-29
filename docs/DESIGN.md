@@ -80,6 +80,8 @@ Here is a summary of important design decisions made for the GiftTrackr App:
 2. **Success Indicators:**
    - Gifts appear when a gift is added on the home screen and disappear following a gift being deleted displaying successful actions.
    
-![IMG_4290 2](https://github.com/ucsb-cs184-f23/pj-react-03/assets/40641696/3785ebed-5d47-40ec-a853-ca8d3c590328)
 
+## User Flow between pages. All pages are navigatable through the bottom tab and the actions for each page is listed on each box too
+
+<img width="244" alt="Screenshot 2023-11-29 at 2 53 38 PM" src="https://github.com/ucsb-cs184-f23/pj-react-03/assets/65988599/24f3cd9e-f002-431d-aed2-18f70ea1107e">
 
