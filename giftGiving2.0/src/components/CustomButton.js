@@ -1,7 +1,8 @@
 import React from "react";
 import { Pressable, Text } from "react-native";
 
-const CustomButton = ({ title, onPress }) => { // Declare the CustomButton component
+const CustomButton = ({ title, onPress }) => {
+  // Declare the CustomButton component
   return (
     <Pressable
       style={({ pressed }) => [

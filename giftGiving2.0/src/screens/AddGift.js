@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Alert, Dimensions, ScrollView } from "react-native";
+import { View, Text, TextInput, Alert, Dimensions } from "react-native";
 import {
   getFirestore,
   addDoc,
@@ -11,6 +11,7 @@ import {
   setDoc,
 } from "firebase/firestore";
 import { styles } from "../styles";
+import CustomButton from "../components/CustomButton";
 
 function AddGift({ navigation, route }) {
   const [recipient, setRecipient] = useState("");
@@ -23,7 +24,7 @@ function AddGift({ navigation, route }) {
   const { username } = route.params; // Added to get the username from the navigation route
 
   const isValidDate = (dateString) => {
-    const regex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}$/;
+    const regex = /^(0[1-9]|1[0-2]).(0[1-9]|[12][0-9]|3[01]).\d{4}$/;
     return regex.test(dateString);
   };
 
@@ -36,7 +37,7 @@ function AddGift({ navigation, route }) {
       return;
     }
 
-    const [month, day, year] = date.split("/").map(Number);
+    const [month, day, year] = date.split(".").map(Number);
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth() + 1;
@@ -54,7 +55,7 @@ function AddGift({ navigation, route }) {
     }
 
     //Convert date to unix timestamp
-    const [monthIndex, dayIndex, yearIndex] = date.split("/").map(Number);
+    const [monthIndex, dayIndex, yearIndex] = date.split(".").map(Number);
     const timestamp = new Date(yearIndex, monthIndex - 1, dayIndex).getTime();
 
     const giftData = {
@@ -111,59 +112,54 @@ function AddGift({ navigation, route }) {
         marginTop: marginTopAmnt,
       }}
     >
-      <ScrollView width="100%">
-        <Text style={styles.pageHeader}>Add a Gift</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Recipient"
-          value={recipient}
-          onChangeText={(text) => setRecipient(text)}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Date (MM/DD/YYYY)"
-          value={date}
-          onChangeText={(text) => {
-            if (text.length === 2 || text.length === 5) {
-              text += "/";
-            }
-            setDate(text);
-          }}
-          keyboardType="numeric"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Occasion"
-          value={occasion}
-          onChangeText={(text) => setOccasion(text)}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Budget"
-          value={budget}
-          onChangeText={(text) => setBudget(text)}
-          keyboardType="numeric"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Likes"
-          value={likes}
-          onChangeText={(text) => setLikes(text)}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Dislikes"
-          value={dislikes}
-          onChangeText={(text) => setDislikes(text)}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Decided Gift"
-          value={decidedGift}
-          onChangeText={(text) => setDecidedGift(text)}
-        />
-        <CustomButton title="Save" onPress={saveData} />
-      </ScrollView>
+      <Text style={styles.pageHeader}>Add a Gift</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Recipient"
+        value={recipient}
+        onChangeText={(text) => setRecipient(text)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Date (MM.DD.YYYY)"
+        value={date}
+        onChangeText={(text) => {
+          setDate(text);
+        }}
+        keyboardType="numeric"
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Occasion"
+        value={occasion}
+        onChangeText={(text) => setOccasion(text)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Budget"
+        value={budget}
+        onChangeText={(text) => setBudget(text)}
+        keyboardType="numeric"
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Likes"
+        value={likes}
+        onChangeText={(text) => setLikes(text)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Dislikes"
+        value={dislikes}
+        onChangeText={(text) => setDislikes(text)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Decided Gift"
+        value={decidedGift}
+        onChangeText={(text) => setDecidedGift(text)}
+      />
+      <CustomButton title="Save" onPress={saveData} />
     </View>
   );
 }
