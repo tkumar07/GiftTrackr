@@ -50,7 +50,7 @@ function AddGift({ navigation, route }) {
       (year === currentYear && month < currentMonth) ||
       (year === currentYear && month === currentMonth && day < currentDay)
     ) {
-      Alert.alert("Error", "Please enter a valid date.");
+      Alert.alert("Error", "Please enter a valid date after today.");
       return;
     }
 

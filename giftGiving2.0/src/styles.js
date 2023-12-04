@@ -208,6 +208,17 @@ export const styles = {
     width: "100%",
     padding: "5",
   },
+  encouragementText: {
+    fontSize: 16,
+    color: "grey",
+    marginBottom: 20,
+  },
+  logo: {
+    width: "70%",
+    aspectRatio: 1,
+    resizeMode: "contain",
+    marginTop: 0,
+  },
   date: {
     fontSize: 16,
     color: "#777",
@@ -217,6 +228,13 @@ export const styles = {
   },
   headerText: {
     fontSize: 24,
+  },
+  pageContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "flex-start",
+    width: "100%",
+    backgroundColor: "#7DAFD4",
   },
   pageHeader: {
     width: "100%",

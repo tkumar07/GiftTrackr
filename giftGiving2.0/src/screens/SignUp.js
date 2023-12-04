@@ -54,10 +54,10 @@ const SignUp = (props) => {
   };
 
   const screenHeight = Dimensions.get("window").height;
-  const marginTopAmnt = screenHeight * 0.09;
+  const marginTopAmnt = screenHeight * 0.35;
 
   return (
-    <View style={[styles.container, { padding: 16 }]}>
+    <View style={styles.pageContainer}>
       <View
         style={[
           styles.container,
