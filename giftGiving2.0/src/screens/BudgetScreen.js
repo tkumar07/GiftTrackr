@@ -141,8 +141,11 @@ function BudgetScreen(props) {
   const screenHeight = Dimensions.get("window").height;
   const screenWidth = Dimensions.get("window").width;
   const widthInPixels = `${screenWidth * 0.9}px`;
-  const marginTopAmnt = screenHeight * 0.09;
+  let marginTopAmnt = screenHeight * 0.09;
 
+  if (marginTopAmnt > 75) {
+    marginTopAmnt = 75;
+  }
   return (
     <View
       style={{

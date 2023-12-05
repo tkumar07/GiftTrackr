@@ -80,7 +80,11 @@ function HomeScreen(props) {
     .sort((a, b) => Number(a.date) - Number(b.date));
 
   const screenHeight = Dimensions.get("window").height;
-  const marginTopAmnt = screenHeight * 0.09;
+  let marginTopAmnt = screenHeight * 0.09;
+
+  if (marginTopAmnt > 75) {
+    marginTopAmnt = 75;
+  }
 
   return (
     <View style={{ ...styles.grayContainer, marginTop: marginTopAmnt }}>

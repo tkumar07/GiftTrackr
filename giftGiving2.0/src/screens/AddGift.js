@@ -110,8 +110,11 @@ function AddGift({ navigation, route }) {
   };
 
   const screenHeight = Dimensions.get("window").height;
-  const marginTopAmnt = screenHeight * 0.09;
+  let marginTopAmnt = screenHeight * 0.09;
 
+  if (marginTopAmnt > 75) {
+    marginTopAmnt = 75;
+  }
   return (
     <View
       style={{
@@ -167,7 +170,9 @@ function AddGift({ navigation, route }) {
           value={decidedGift}
           onChangeText={(text) => setDecidedGift(text)}
         />
-        <CustomButton title="Save" onPress={saveData} />
+        <View style={{ justifyContent: "flex-start", alignItems: "center" }}>
+          <CustomButton title="Save" onPress={saveData} />
+        </View>
       </ScrollView>
     </View>
   );
