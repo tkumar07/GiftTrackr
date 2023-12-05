@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ScrollView, Dimensions, Alert } from "react-native";
+import { View, Text, ScrollView, Dimensions } from "react-native";
 import { GiftDetailsCard } from "./src/components/GiftDetailsCard";
 import { styles } from "./src/styles";
 import { db } from "./src/config/firebase";
@@ -79,7 +79,12 @@ function HomeScreen(props) {
     )
     .sort((a, b) => Number(a.date) - Number(b.date));
 
-  const marginTopAmnt = 45;
+  const screenHeight = Dimensions.get("window").height;
+  let marginTopAmnt = screenHeight * 0.09;
+
+  if (marginTopAmnt > 75) {
+    marginTopAmnt = 75;
+  }
 
   return (
     <View style={{ ...styles.grayContainer, marginTop: marginTopAmnt }}>

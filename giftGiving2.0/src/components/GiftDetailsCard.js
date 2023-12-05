@@ -55,29 +55,30 @@ const GiftDetailsCard = ({
     ]);
   };
 
-  const fetchSuggestedGifts = async (occasion,budget,likes) => {
-      const prompt = `Suggest a gift for a ${occasion},budget of ${budget} where the likes are ${likes}`
+  const fetchSuggestedGifts = async (occasion, budget, likes) => {
+    const prompt = `Suggest a gift for a ${occasion},budget of ${budget} where the likes are ${likes}`;
 
-      const response = await fetch('https://api.openai.com/v1/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer `,
-        },
-        body: JSON.stringify({ 
-          model: 'text-davinci-002',
-          prompt: prompt,
-          max_tokens: 30,
-        }),
-      });
-  
-      const data = await response.json();
-      console.log('API Response:', data);
-      const suggestedGiftsArray = data.choices[0].text.split('\n').filter(item => item.trim() !== ''); 
+    const response = await fetch("https://api.openai.com/v1/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer `,
+      },
+      body: JSON.stringify({
+        model: "text-davinci-002",
+        prompt: prompt,
+        max_tokens: 30,
+      }),
+    });
 
-      setSuggestedGifts(suggestedGiftsArray);
-      
-    }
+    const data = await response.json();
+    console.log("API Response:", data);
+    const suggestedGiftsArray = data.choices[0].text
+      .split("\n")
+      .filter((item) => item.trim() !== "");
+
+    setSuggestedGifts(suggestedGiftsArray);
+  };
 
   return (
     <Card containerStyle={styles.cardContainer}>
