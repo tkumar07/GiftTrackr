@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Alert, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Alert,
+  Dimensions,
+  ScrollView,
+} from "react-native";
 import {
   getFirestore,
   addDoc,
@@ -112,54 +119,56 @@ function AddGift({ navigation, route }) {
         marginTop: marginTopAmnt,
       }}
     >
-      <Text style={styles.pageHeader}>Add a Gift</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Recipient"
-        value={recipient}
-        onChangeText={(text) => setRecipient(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Date (MM.DD.YYYY)"
-        value={date}
-        onChangeText={(text) => {
-          setDate(text);
-        }}
-        keyboardType="numeric"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Occasion"
-        value={occasion}
-        onChangeText={(text) => setOccasion(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Budget"
-        value={budget}
-        onChangeText={(text) => setBudget(text)}
-        keyboardType="numeric"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Likes"
-        value={likes}
-        onChangeText={(text) => setLikes(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Dislikes"
-        value={dislikes}
-        onChangeText={(text) => setDislikes(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Decided Gift"
-        value={decidedGift}
-        onChangeText={(text) => setDecidedGift(text)}
-      />
-      <CustomButton title="Save" onPress={saveData} />
+      <ScrollView width="100%">
+        <Text style={styles.pageHeader}>Add a Gift</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Recipient"
+          value={recipient}
+          onChangeText={(text) => setRecipient(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Date (MM.DD.YYYY)"
+          value={date}
+          onChangeText={(text) => {
+            setDate(text);
+          }}
+          keyboardType="numeric"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Occasion"
+          value={occasion}
+          onChangeText={(text) => setOccasion(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Budget"
+          value={budget}
+          onChangeText={(text) => setBudget(text)}
+          keyboardType="numeric"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Likes"
+          value={likes}
+          onChangeText={(text) => setLikes(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Dislikes"
+          value={dislikes}
+          onChangeText={(text) => setDislikes(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Decided Gift"
+          value={decidedGift}
+          onChangeText={(text) => setDecidedGift(text)}
+        />
+        <CustomButton title="Save" onPress={saveData} />
+      </ScrollView>
     </View>
   );
 }

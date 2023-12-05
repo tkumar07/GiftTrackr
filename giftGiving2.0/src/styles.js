@@ -245,11 +245,27 @@ export const styles = {
     marginBottom: 5,
     color: "#092936",
   },
+  bigText: {
+    width: "100%",
+    marginTop: 15,
+    fontSize: 48,
+    fontWeight: "bold",
+    textAlign: "left",
+    marginBottom: -5,
+    color: "black",
+  },
   passwordContainer: {
     position: "absolute",
     right: 30,
     top: 20,
     zIndex: 1,
+  },
+  setting: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingRight: 10,
+    marginBottom: 10,
   },
   subtitle: {
     fontSize: 20,

@@ -129,7 +129,7 @@ const CalendarScreen = (props) => {
   };
 
   const screenHeight = Dimensions.get("window").height;
-  const marginTopAmnt = screenHeight * 0.05;
+  const marginTopAmnt = screenHeight * 0.09;
 
   return (
     <ScrollView>
