@@ -208,6 +208,17 @@ export const styles = {
     width: "100%",
     padding: "5",
   },
+  encouragementText: {
+    fontSize: 16,
+    color: "grey",
+    marginBottom: 20,
+  },
+  logo: {
+    width: "70%",
+    aspectRatio: 1,
+    resizeMode: "contain",
+    marginTop: 0,
+  },
   date: {
     fontSize: 16,
     color: "#777",
@@ -218,6 +229,13 @@ export const styles = {
   headerText: {
     fontSize: 24,
   },
+  pageContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "flex-start",
+    width: "100%",
+    backgroundColor: "#7DAFD4",
+  },
   pageHeader: {
     width: "100%",
     marginTop: 15,
@@ -227,11 +245,27 @@ export const styles = {
     marginBottom: 5,
     color: "#092936",
   },
+  bigText: {
+    width: "100%",
+    marginTop: 15,
+    fontSize: 48,
+    fontWeight: "bold",
+    textAlign: "left",
+    marginBottom: -5,
+    color: "black",
+  },
   passwordContainer: {
     position: "absolute",
     right: 30,
     top: 20,
     zIndex: 1,
+  },
+  setting: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingRight: 10,
+    marginBottom: 10,
   },
   subtitle: {
     fontSize: 20,

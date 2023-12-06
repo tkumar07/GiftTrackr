@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Alert, Dimensions, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Alert,
+  Dimensions,
+  ScrollView,
+} from "react-native";
 import {
   getFirestore,
   addDoc,
@@ -11,6 +18,7 @@ import {
   setDoc,
 } from "firebase/firestore";
 import { styles } from "../styles";
+import CustomButton from "../components/CustomButton";
 
 function AddGift({ navigation, route }) {
   const [recipient, setRecipient] = useState("");
@@ -23,7 +31,7 @@ function AddGift({ navigation, route }) {
   const { username } = route.params; // Added to get the username from the navigation route
 
   const isValidDate = (dateString) => {
-    const regex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}$/;
+    const regex = /^(0[1-9]|1[0-2]).(0[1-9]|[12][0-9]|3[01]).\d{4}$/;
     return regex.test(dateString);
   };
 
@@ -36,7 +44,7 @@ function AddGift({ navigation, route }) {
       return;
     }
 
-    const [month, day, year] = date.split("/").map(Number);
+    const [month, day, year] = date.split(".").map(Number);
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth() + 1;
@@ -49,12 +57,12 @@ function AddGift({ navigation, route }) {
       (year === currentYear && month < currentMonth) ||
       (year === currentYear && month === currentMonth && day < currentDay)
     ) {
-      Alert.alert("Error", "Please enter a valid date.");
+      Alert.alert("Error", "Please enter a valid date after today.");
       return;
     }
 
     //Convert date to unix timestamp
-    const [monthIndex, dayIndex, yearIndex] = date.split("/").map(Number);
+    const [monthIndex, dayIndex, yearIndex] = date.split(".").map(Number);
     const timestamp = new Date(yearIndex, monthIndex - 1, dayIndex).getTime();
 
     const giftData = {
@@ -102,8 +110,11 @@ function AddGift({ navigation, route }) {
   };
 
   const screenHeight = Dimensions.get("window").height;
-  const marginTopAmnt = screenHeight * 0.09;
+  let marginTopAmnt = screenHeight * 0.09;
 
+  if (marginTopAmnt > 75) {
+    marginTopAmnt = 75;
+  }
   return (
     <View
       style={{
@@ -121,12 +132,9 @@ function AddGift({ navigation, route }) {
         />
         <TextInput
           style={styles.input}
-          placeholder="Date (MM/DD/YYYY)"
+          placeholder="Date (MM.DD.YYYY)"
           value={date}
           onChangeText={(text) => {
-            if (text.length === 2 || text.length === 5) {
-              text += "/";
-            }
             setDate(text);
           }}
           keyboardType="numeric"
@@ -162,7 +170,9 @@ function AddGift({ navigation, route }) {
           value={decidedGift}
           onChangeText={(text) => setDecidedGift(text)}
         />
-        <CustomButton title="Save" onPress={saveData} />
+        <View style={{ justifyContent: "flex-start", alignItems: "center" }}>
+          <CustomButton title="Save" onPress={saveData} />
+        </View>
       </ScrollView>
     </View>
   );

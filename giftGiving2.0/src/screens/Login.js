@@ -7,6 +7,7 @@ import {
   Image,
   Dimensions,
   Text,
+  ScrollView,
 } from "react-native";
 import { collection, query, where, getDocs } from "@firebase/firestore";
 import { db } from "../config/firebase";
@@ -54,10 +55,14 @@ const Login = (props) => {
   };
 
   const screenHeight = Dimensions.get("window").height;
-  const marginTopAmnt = screenHeight * 0.09;
+  let marginTopAmnt = screenHeight * 0.25;
+
+  if (marginTopAmnt > 150) {
+    marginTopAmnt = 150;
+  }
 
   return (
-    <View style={[styles.container, { padding: 16 }]}>
+    <View style={styles.pageContainer}>
       <View
         style={[
           styles.container,
@@ -118,12 +123,7 @@ const Login = (props) => {
         </View>
         <Image
           source={require("../../assets/giftTrackrLogo.png")}
-          style={{
-            width: "33%",
-            aspectRatio: 1,
-            resizeMode: "contain",
-            marginTop: 0,
-          }}
+          style={styles.logo}
         />
       </View>
     </View>
