@@ -17,9 +17,9 @@
 | Name            | Commits | Code Additions | Code Deletions   |
 |-----------------|---------|-----------------|---------------- |
 | Marie Karpinska | 71      | 2,537 ++        | 721 --          |
-| Benjamin Yang   | 27      |   898 ++        | 248 --          |
+| Benjamin Yang   | 27      |       ++        |     --          |
 | Shang-Hsun Yang | 16      |     ++          |     --          |
-| Tanish Kumar    | 13      |     ++          |     --          |
+| Tanish Kumar    | 13      |  898++          | 248 --          |
 | Archit Gupta    | 11      |     ++          |     --          |
 
 * Excluded changes from Marie Karpinska on Oct 14th and Oct 29th for initializing the app and deleting the old app folder (29,117++ and 30,150--)
