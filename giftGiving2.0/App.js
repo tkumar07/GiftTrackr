@@ -5,20 +5,28 @@ import CalendarScreen from "./src/screens/CalendarScreen";
 import BudgetScreen from "./src/screens/BudgetScreen";
 import GiftHistoryScreen from "./src/screens/GiftHistoryScreen";
 import AddGift from "./src/screens/AddGift";
+import EditGift from "./src/screens/EditGift";
 import Notifications from "./src/components/Notification";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { collection,onSnapshot, query, where, getDocs, getDoc, doc } from "@firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  query,
+  where,
+  getDocs,
+  getDoc,
+  doc,
+} from "@firebase/firestore";
 
 import { db } from "./src/config/firebase";
 import Login from "./src/screens/Login";
 import SignUp from "./src/screens/SignUp";
 import { styles } from "./src/styles";
 import { useTheme } from "react-native-paper";
-import * as ExpoNotifications from 'expo-notifications';
+import * as ExpoNotifications from "expo-notifications";
 const Tab = createMaterialBottomTabNavigator();
-
 
 export default function App() {
   const [people, setPeople] = useState([]);
@@ -26,6 +34,8 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLogin, setShowLogin] = useState(true);
   const [username, setUsername] = useState("");
+  console.disableYellowBox = true;
+  console.warn = () => {};
 
   async function scheduleNotification() {
     await ExpoNotifications.scheduleNotificationAsync({
@@ -41,104 +51,103 @@ export default function App() {
 
   async function registerForPushNotificationsAsync() {
     let token;
-    if (Platform.OS === 'ios') {
-      const { status: existingStatus } = await ExpoNotifications.getPermissionsAsync();
+    if (Platform.OS === "ios") {
+      const { status: existingStatus } =
+        await ExpoNotifications.getPermissionsAsync();
       let finalStatus = existingStatus;
-  
+
       // Only ask if permissions have not already been determined, because
       // iOS won't necessarily prompt the user a second time.
-      if (existingStatus !== 'granted') {
+      if (existingStatus !== "granted") {
         const { status } = await ExpoNotifications.requestPermissionsAsync();
         finalStatus = status;
       }
 
       // Stop here if the user did not grant permissions
-      if (finalStatus !== 'granted') {
-        alert('Failed to get push token for push notification!');
+      if (finalStatus !== "granted") {
+        alert("Failed to get push token for push notification!");
         return;
       }
-  
+
       // Get the token that uniquely identifies this device
       token = (await ExpoNotifications.getExpoPushTokenAsync()).data;
-      console.log(token); // Log the token to check in the console
+      // console.log(token); // Log the token to check in the console
     } else {
       // You can add logic for Android here if needed
     }
     return token;
   }
 
-
-
   async function fetchUserGifts(username) {
-      if(username){
-        console.log("INSIDE FETCH USER ")
-        const usersRef = collection(db, "users");
+    if (username) {
+      // console.log("INSIDE FETCH USER ");
+      const usersRef = collection(db, "users");
       const q = query(usersRef, where("username", "==", username));
-      console.log(username)
+      // console.log(username);
       const querySnapshot = await getDocs(q);
       if (!querySnapshot.empty) {
-
         const userDocRef = querySnapshot.docs[0].ref; // Reference of the first document
         const userDocSnapshot = await getDoc(userDocRef);
-        if(userDocSnapshot.exists()) {
+        if (userDocSnapshot.exists()) {
           const userData = userDocSnapshot.data();
 
           if (userData.notificationsEnabled) {
-            console.log("found gift data")
-            console.log(userDocSnapshot.data())
+            // console.log("found gift data");
+            // console.log(userDocSnapshot.data());
             return {
               gifts: userData.gifts || [],
-              daysBeforeEvent: userData.daysBeforeEvent || 0
-            };          
+              daysBeforeEvent: userData.daysBeforeEvent || 0,
+            };
           }
         } else {
-          console.log("user has no gifts")
+          console.log("user has no gifts");
         }
       } else {
-        console.log("No user found");
+        // console.log("No user found");
         return []; // Return empty array if user is not found
       }
-    } 
+    }
   }
-
 
   async function fetchGiftDetails(giftIds) {
     let giftDetails = [];
-  
+
     for (const giftId of giftIds) {
-      console.log("gift id:")
-      console.log(giftId)
+      // console.log("gift id:");
+      // console.log(giftId);
       const giftRef = doc(db, "gifts", giftId);
       const giftSnapshot = await getDoc(giftRef);
-      console.log("finding gft ref")
-      console.log(giftSnapshot.data().date)
-  
+      // console.log("finding gft ref");
+      // console.log(giftSnapshot.data().date);
+
       if (giftSnapshot.exists()) {
         giftDetails.push(giftSnapshot.data());
       } else {
-        console.log(`No details found for gift with ID: ${giftId}`);
+        // console.log(`No details found for gift with ID: ${giftId}`);
       }
     }
-  
+
     return giftDetails;
   }
-  
 
   async function scheduleGiftNotifications(username) {
     const { gifts, daysBeforeEvent } = await fetchUserGifts(username);
 
-    let giftsReturned = await fetchGiftDetails(gifts)
+    let giftsReturned = await fetchGiftDetails(gifts);
 
-    console.log("Found gifts:" + (await giftsReturned).length)
+    // console.log("Found gifts:" + (await giftsReturned).length);
 
     giftsReturned.forEach(async (gift) => {
-      console.log("new gift")
-      console.log(gift)
-      const notificationTime = new Date(gift.date - (daysBeforeEvent * 24 * 60 * 60 * 1000));
+      // console.log("new gift");
+      // console.log(gift);
+      const notificationTime = new Date(
+        gift.date - daysBeforeEvent * 24 * 60 * 60 * 1000
+      );
       console.log("notifcation time in DB: " + gift.date);
       console.log("notifcation time: " + notificationTime.getDate());
       console.log(new Date());
-      if(notificationTime > new Date()) { // Only schedule if the date is in the future
+      if (notificationTime > new Date()) {
+        // Only schedule if the date is in the future
         await ExpoNotifications.scheduleNotificationAsync({
           content: {
             title: "Upcoming Gift Reminder",
@@ -147,13 +156,12 @@ export default function App() {
           trigger: notificationTime,
         });
 
-        console.log("scheduled notifcation at: " + notificationTime )
+        console.log("scheduled notifcation at: " + notificationTime);
       } else {
-        console.log("NOTIFCATION PASSED")
+        console.log("NOTIFCATION PASSED");
       }
     });
   }
-
 
   // async function scheduleNotification() {
   //   await ExpoNotifications.scheduleNotificationAsync({
@@ -166,7 +174,7 @@ export default function App() {
   //   });
   // }
 
-  ExpoNotifications.addNotificationReceivedListener(notification => {
+  ExpoNotifications.addNotificationReceivedListener((notification) => {
     console.log(notification);
   });
 
@@ -180,16 +188,15 @@ export default function App() {
       setLoading(false);
     });
 
-    ExpoNotifications.addNotificationReceivedListener(notification => {
-      console.log('Notification received!', notification);
+    ExpoNotifications.addNotificationReceivedListener((notification) => {
+      console.log("Notification received!", notification);
     });
-    
   }, []);
 
   const handleSuccessfulLogin = (user) => {
     setUsername(user);
     setIsLoggedIn(true);
-    if (Platform.OS === 'ios') {
+    if (Platform.OS === "ios") {
       registerForPushNotificationsAsync();
     }
     // scheduleNotification();
@@ -277,7 +284,7 @@ export default function App() {
             <Tab.Screen
               name="Budget"
               component={BudgetScreen}
-              initialParams={{ username: username }} 
+              initialParams={{ username: username }}
               options={{
                 tabBarIcon: ({ color }) => (
                   <MaterialCommunityIcons
@@ -333,7 +340,7 @@ export default function App() {
               component={Notifications}
               initialParams={{ username: username }}
               options={{
-                tabBarIcon: ({ color = 'defaultColorHere' }) => (
+                tabBarIcon: ({ color = "defaultColorHere" }) => (
                   <MaterialCommunityIcons
                     name="bell-outline"
                     color={color}
@@ -342,12 +349,16 @@ export default function App() {
                 ),
               }}
             />
+            <Tab.Screen
+              name="EditGift"
+              component={EditGift}
+              options={{
+                tabBarVisible: false, // Hide the bottom tab bar when editing
+              }}
+            />
           </Tab.Navigator>
         </>
       )}
     </NavigationContainer>
   );
 }
-
-
-

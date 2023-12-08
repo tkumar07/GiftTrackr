@@ -193,7 +193,6 @@ const GiftHistoryScreen = ({ route }) => {
       <TextInput
         style={styles.input}
         placeholder={placeholder}
-        placeholderTextColor="#888" // Placeholder text color for better visibility
         value={value}
         onChangeText={handleTextChange}
         keyboardType={keyboardType}
@@ -271,7 +270,6 @@ styles.input = {
   ...styles.input,
   backgroundColor: "#fff",
   color: "#000",
-  placeholderTextColor: "#888",
 };
 
 export default GiftHistoryScreen;

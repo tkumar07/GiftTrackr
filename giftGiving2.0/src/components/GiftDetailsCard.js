@@ -16,11 +16,12 @@ const GiftDetailsCard = ({
   decidedGift,
   id,
   updateGifts,
+  navigation,
 }) => {
   const [suggestedGifts, setSuggestedGifts] = useState([]);
 
   useEffect(() => {
-    console.log("useEffect triggered");
+    // console.log("useEffect triggered");
     fetchSuggestedGifts(occasion, budget, likes);
   }, [occasion, budget, likes]);
 
@@ -71,12 +72,29 @@ const GiftDetailsCard = ({
     });
 
     const data = await response.json();
-    console.log("API Response:", data);
+    // console.log("API Response:", data);
     const suggestedGiftsArray = data.choices[0].text
       .split("\n")
       .filter((item) => item.trim() !== "");
 
     setSuggestedGifts(suggestedGiftsArray);
+  };
+
+  const handleEdit = (id) => {
+    navigation.navigate("EditGift", {
+      giftData: {
+        recipient,
+        date,
+        occasion,
+        budget,
+        likes,
+        dislikes,
+        decidedGift,
+        id,
+      },
+      updateGifts,
+      navigation,
+    });
   };
 
   return (
@@ -109,6 +127,22 @@ const GiftDetailsCard = ({
           <View style={styles.column}>
             <Text style={styles.columnTitle}>Dislikes</Text>
             <Text style={styles.text}>{dislikes}</Text>
+          </View>
+        </View>
+        <View style={[styles.setting, { marginTop: 10, marginBottom: -1 }]}>
+          <View style={[{ marginTop: -9 }]}>
+            <TouchableOpacity
+              onPress={() => handleEdit(id)}
+              style={styles.editButton}
+            >
+              <MaterialCommunityIcons
+                name="square-edit-outline"
+                size={24}
+                color="gray"
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={[{ marginTop: 24, marginRight: 15 }]}>
             <TouchableOpacity
               onPress={() => handleDelete(id)}
               style={styles.deleteButton}
