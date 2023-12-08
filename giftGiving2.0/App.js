@@ -166,6 +166,11 @@ export default function App() {
   //   });
   // }
 
+
+  const handleLogout = () => {  
+    setIsLoggedIn(false);
+  };
+  
   ExpoNotifications.addNotificationReceivedListener(notification => {
     console.log(notification);
   });
@@ -338,6 +343,31 @@ export default function App() {
                     name="bell-outline"
                     color={color}
                     size={26}
+                  />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Logout"
+              component={View} // A dummy component, since we will handle logout on press
+              listeners={{
+                tabPress: (e) => {
+                  e.preventDefault(); // Prevent default action
+                  handleLogout(); // Call your logout function
+                },
+              }}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <MaterialCommunityIcons
+                    name="logout"
+                    color={styles.almostWhiteText}
+                    size={26}
+                    style={{
+                      color:
+                        color === styles.almostWhiteText
+                          ? styles.almostWhiteText
+                          : styles.grayedOutColor,
+                    }}
                   />
                 ),
               }}
