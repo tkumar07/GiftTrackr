@@ -17,7 +17,7 @@
 | Name            | Commits | Code Additions | Code Deletions   |
 |-----------------|---------|-----------------|---------------- |
 | Marie Karpinska | 71      | 2,537 ++        | 721 --          |
-| Benjamin Yang   | 27      |     ++          |     --          |
+| Benjamin Yang   | 27      |   898 ++        | 248 --          |
 | Shang-Hsun Yang | 16      |     ++          |     --          |
 | Tanish Kumar    | 13      |     ++          |     --          |
 | Archit Gupta    | 11      |     ++          |     --          |
@@ -45,3 +45,7 @@
 #### Marie Karpinska
 
 During my time contributing to the GiftTrackr App, I've been actively involved with 71 commits, adding 2,537 lines of code and refining the project with 721 deletions. The overall numbers from Github's insights are incorrect because they include 29,117++ and 30,150-- from initializing the app. I've made 11 pull requests and reviewed 10, emphasizing collaboration and continuous improvement. The large amount of commits are likely from me committing work to branches several times before completion, allowing for experimentation and easy navigation between different app versions, particularly useful for code reviews. My React background played a key role in transitioning to React Native, and being able to contribute signifcantly to this project. I'm content with my contributions and recognize the diverse strengths each teammate brings to the project!
+
+#### Tanish Kumar
+
+Throughout the quarter, I have been a very involved and helpful team member on the GiftTrackr app. I have made 7 pull requests, and reviewd 6. I have been timely in both submitting PR's as well as reviewing them. The things I worked on in the app were multipe versions of the Calendar screen, adding the initial show/hide password functionality, and then OpenAI API integration for the Gift Suggestions feature. One thing to improve on in the future is commiting my code more often, as I would often wait until features were done to commit my code. Overall, I am happy with my contributions and had a very fun time working on the GiftTrackr app!
