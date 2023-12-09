@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ScrollView, Dimensions, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  Dimensions,
+  TouchableOpacity,
+  Modal,
+} from "react-native";
 import { GiftDetailsCard } from "./src/components/GiftDetailsCard";
+import EditGift from "./src/screens/EditGift"; // Assuming EditGift is located here
 import { styles } from "./src/styles";
 import { db } from "./src/config/firebase";
 import {
-  getFirestore,
   collection,
   query,
   where,
@@ -15,12 +22,13 @@ import {
 import { useFocusEffect } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
-import AddGift from "./src/screens/AddGift";
 
 function HomeScreen(props) {
   const { username } = props.route.params;
   const [userGifts, setUserGifts] = useState([]);
   const navigation = useNavigation();
+  const [editGiftModalVisible, setEditGiftModalVisible] = useState(false);
+  const [currentGiftData, setCurrentGiftData] = useState(null);
 
   const fetchUserGifts = async () => {
     try {
@@ -93,6 +101,17 @@ function HomeScreen(props) {
     // Navigate to the AddGift screen without using props.navigation
     props.navigation.push("AddGift", { username });
   };
+
+  const handleGiftUpdate = () => {
+    setEditGiftModalVisible(false);
+    fetchUserGifts(); // Refresh the list after editing
+  };
+
+  const openEditGiftModal = (giftData) => {
+    setCurrentGiftData({ ...giftData, username: username, id: giftData.id });
+    setEditGiftModalVisible(true);
+  };
+
   return (
     <View style={{ ...styles.grayContainer, marginTop: marginTopAmnt }}>
       <ScrollView width="100%">
@@ -112,6 +131,7 @@ function HomeScreen(props) {
             id={giftCard.id}
             updateGifts={fetchUserGifts}
             navigation={props.navigation}
+            onEditPress={() => openEditGiftModal(giftCard)}
           />
         ))}
         <Text style={styles.pageHeader}>Upcoming Gifts</Text>
@@ -128,6 +148,7 @@ function HomeScreen(props) {
             id={giftCard.id}
             updateGifts={fetchUserGifts}
             navigation={props.navigation}
+            onEditPress={() => openEditGiftModal(giftCard)}
           />
         ))}
         {upcomingGifts.length === 0 && (
@@ -141,7 +162,7 @@ function HomeScreen(props) {
           </View>
         )}
       </ScrollView>
-      
+
       {/* Floating action button for adding gifts */}
       <TouchableOpacity
         style={styles.fab}
@@ -149,6 +170,18 @@ function HomeScreen(props) {
       >
         <MaterialCommunityIcons name="plus" size={30} color="white" />
       </TouchableOpacity>
+      <Modal
+        visible={editGiftModalVisible}
+        animationType="slide"
+        transparent={false}
+        onRequestClose={() => setEditGiftModalVisible(false)}
+      >
+        <EditGift
+          giftData={currentGiftData}
+          onClose={handleGiftUpdate} // Pass the new handler
+          username={username}
+        />
+      </Modal>
     </View>
   );
 }
