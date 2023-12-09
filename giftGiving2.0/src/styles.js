@@ -280,4 +280,13 @@ export const styles = {
     justifyContent: "space-between",
     alignItems: "flex-start",
   },
+  fab: {
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+    backgroundColor: "black",
+    padding: 10,
+    borderRadius: 30,
+    elevation: 5,
+  },
 };
