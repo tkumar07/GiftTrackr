@@ -19,7 +19,7 @@
 | Marie Karpinska | 71      | 2,537 ++        | 721 --          |
 | Benjamin Yang   | 27      |       ++        |     --          |
 | Shang-Hsun Yang | 24      |  207  ++        | 84  --          |
-| Tanish Kumar    | 13      |  898  ++        | 248 --          |
+| Tanish Kumar    | 13      |  964  ++        | 287 --          |
 | Archit Gupta    | 11      |  942  ++        | 401 --          |
 
 * Excluded changes from Marie Karpinska on Oct 14th and Oct 29th for initializing the app and deleting the old app folder (29,117++ and 30,150--)
@@ -34,7 +34,7 @@
 | Archit Gupta    | 4                  | 4                       |
 | Benjamin Yang   | 4                  | 8                       |
 | Shang-Hsun Yang | 4                  | 3                       |
-| Tanish Kumar    | 7                  | 6                       |
+| Tanish Kumar    | 8                  | 7                       |
 
 * Excluded 3 of Marie's PRs --> 2 were merging her branches together and one was a duplicate
 * Excluded 3 of Archit's PRs --> 2 were updates to markdown files and #38 was a duplicate of #48
