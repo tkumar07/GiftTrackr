@@ -7,7 +7,7 @@ The GiftTrackr App is designed to help users plan and organize their gift-giving
 ## Features
 
 ### 1. User Authentication
-   - Allows users to log in securely to personalize their gift-giving experience.
+   - Allows users to log in, or signup, securely to personalize their gift-giving experience.
 
      <img width="314" alt="Screenshot 2023-11-25 at 10 02 42 PM" src="https://github.com/ucsb-cs184-f23/pj-react-03/assets/65988599/cea48443-d503-45cd-af87-daf35fc1c5d4">
 
@@ -21,9 +21,14 @@ The GiftTrackr App is designed to help users plan and organize their gift-giving
      
      <img width="125" alt="Screenshot 2023-11-25 at 10 03 44 PM" src="https://github.com/ucsb-cs184-f23/pj-react-03/assets/65988599/832ae0b6-d183-4712-af32-2cd19c8f5426">
 
+   - Dates of events can be kept track of through the calendar screen, which stores the dates of any event you like
+
+     <img width="125" src="https://github.com/ucsb-cs184-f23/pj-react-03/assets/72886906/92e2304e-05cd-498d-ad8d-d046c297b3d6">
+
 ### 3. Budget Management
    - Enables users to set and keep track of budgets for each individual gift.
-    *!TODO insert images*
+<img width="125" src="https://github.com/ucsb-cs184-f23/pj-react-03/assets/72886906/792cb0a5-4fbc-4d40-9a70-27a64d14fb3c">
+
    - Provides an overview of the overall gift spending budget.
 
 ### 4. Personalized Gift Giving
@@ -38,6 +43,16 @@ The GiftTrackr App is designed to help users plan and organize their gift-giving
    - View and update the past history of your gifts given
 
 <img width="125" src="https://github.com/ucsb-cs184-f23/pj-react-03/assets/40641696/3785ebed-5d47-40ec-a853-ca8d3c590328">
+
+### 5. Gift Suggestions
+  - If users are unsure what to give their loved one, GiftTrackr provides potential gift suggestions based on the information the user has inputted
+
+    <img width="125" src="https://github.com/ucsb-cs184-f23/pj-react-03/assets/72886906/cfc06814-2a44-4a39-933b-935da3fbc51e">
+
+### 6. Notifications
+  - Users are able to set up notifications so that they are reminded of gifts before the date
+
+    <img width = "125" src="https://github.com/ucsb-cs184-f23/pj-react-03/assets/72886906/b5e42db2-a850-476b-a723-5028b2464067">
 
 ## Intended Audience
 
