@@ -354,21 +354,6 @@ export default function App() {
               }}
             />
             <Tab.Screen
-              name="EditGift"
-              component={EditGift}
-              options={{
-                tabBarVisible: false, // Hide the bottom tab bar when editing
-                tabBarIcon: ({ color }) => (
-                  <MaterialCommunityIcons
-                    name="pencil-outline"
-                    color={color}
-                    size={26}
-                  />
-                ),
-              }}
-            />
-
-            <Tab.Screen
               name="Logout"
               component={View} // A dummy component, since logout is handled on press
               listeners={{

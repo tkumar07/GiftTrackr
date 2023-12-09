@@ -8,6 +8,7 @@ import {
   Text,
   StyleSheet,
   Dimensions,
+  TouchableWithoutFeedback,
 } from "react-native";
 import {
   getFirestore,
@@ -147,74 +148,78 @@ function BudgetScreen(props) {
     marginTopAmnt = 75;
   }
   return (
-    <View
-      style={{
-        ...styles.grayContainer,
-        marginTop: marginTopAmnt,
-      }}
-    >
-      <Text style={styles.pageHeader}>Budget</Text>
-      <Card containerStyle={styles.cardContainer}>
-        <View style={styles.cardHeader}>
-          <Text style={styles.bigText}>${remainingBudget.toFixed(2)}</Text>
-        </View>
-        <View style={styles.cardContent}>
-          {remainingBudget < 0 ? (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View
+        style={{
+          ...styles.grayContainer,
+          marginTop: marginTopAmnt,
+        }}
+      >
+        <Text style={styles.pageHeader}>Budget</Text>
+        <Card containerStyle={styles.cardContainer}>
+          <View style={styles.cardHeader}>
+            <Text style={styles.bigText}>${remainingBudget.toFixed(2)}</Text>
+          </View>
+          <View style={styles.cardContent}>
+            {remainingBudget < 0 ? (
+              <Text style={styles.text}>
+                Oh no! You went over budget. Please adjust your upcoming gift
+                costs or update your budget.
+              </Text>
+            ) : (
+              <Text style={styles.text}>
+                {"  "}
+                remaining to spend on your loved ones
+              </Text>
+            )}
+            <Text style={styles.text}> </Text>
+            <Text style={styles.text}> </Text>
+            <Text style={styles.subtitle}>Your Gift Giving Budget:</Text>
             <Text style={styles.text}>
-              Oh no! You went over budget. Please adjust your upcoming gift
-              costs or update your budget.
+              $
+              {isNaN(parseFloat(budget))
+                ? "0.00"
+                : parseFloat(budget).toFixed(2)}
             </Text>
-          ) : (
-            <Text style={styles.text}>
-              {"  "}
-              remaining to spend on your loved ones
-            </Text>
-          )}
-          <Text style={styles.text}> </Text>
-          <Text style={styles.text}> </Text>
-          <Text style={styles.subtitle}>Your Gift Giving Budget:</Text>
-          {/* <Text style={[styles.text, { fontSize: "18" }]}>
+            {/* <Text style={[styles.text, { fontSize: "18" }]}>
             {" "}
             ${spentAmount.toFixed(2)}
           </Text> */}
-        </View>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Text style={[styles.subtitle, { fontSize: "26", width: "10%" }]}>
-            $
-          </Text>
-          <TextInput
-            width={widthInPixels}
-            value={updatedBudget ? parseFloat(updatedBudget).toFixed(2) : ""}
-            onChangeText={(text) => {
-              if (!text || !isNaN(text)) {
-                setUpdatedBudget(text);
-              }
-            }}
-            placeholder="Enter your budget"
-            keyboardType="numeric"
-            style={{
-              height: 40,
-              borderColor: isError ? "red" : "gray",
-              borderWidth: 1,
-              marginBottom: 10,
-              paddingHorizontal: 10,
-              width: "80%",
-            }}
-          />
-        </View>
+          </View>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Text style={[styles.subtitle, { fontSize: 26, width: "10%" }]}>
+              $
+            </Text>
+            <TextInput
+              width={widthInPixels}
+              value={updatedBudget}
+              onChangeText={(text) => setUpdatedBudget(text)}
+              placeholder="Enter your budget"
+              keyboardType="numeric"
+              style={{
+                height: 40,
+                borderColor: isError ? "red" : "gray",
+                borderWidth: 1,
+                marginBottom: 10,
+                paddingHorizontal: 10,
+                width: "80%",
+              }}
+            />
+          </View>
 
-        {parseFloat(budget) === 0 && (
-          <Text style={styles.encouragementText}>
-            Please create your first budget!
-          </Text>
-        )}
+          {parseFloat(budget) === 0 && (
+            <Text style={styles.encouragementText}>
+              Please create your first budget!
+            </Text>
+          )}
 
-        <View style={{ justifyContent: "flex-start", alignItems: "center" }}>
-          <CustomButton title="Update Budget" onPress={handleUpdateBudget} />
-          {successMessage ? <Text>{successMessage}</Text> : null}
-        </View>
-      </Card>
-    </View>
+          <View style={{ justifyContent: "flex-start", alignItems: "center" }}>
+            <CustomButton title="Update Budget" onPress={handleUpdateBudget} />
+            {successMessage ? <Text>{successMessage}</Text> : null}
+          </View>
+        </Card>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 

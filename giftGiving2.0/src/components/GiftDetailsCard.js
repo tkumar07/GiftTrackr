@@ -16,7 +16,7 @@ const GiftDetailsCard = ({
   decidedGift,
   id,
   updateGifts,
-  navigation,
+  onEditPress,
 }) => {
   const [suggestedGifts, setSuggestedGifts] = useState([]);
 
@@ -132,7 +132,18 @@ const GiftDetailsCard = ({
         <View style={[styles.setting, { marginTop: 10, marginBottom: -1 }]}>
           <View style={[{ marginTop: -9 }]}>
             <TouchableOpacity
-              onPress={() => handleEdit(id)}
+              onPress={() =>
+                onEditPress({
+                  recipient,
+                  date,
+                  occasion,
+                  budget,
+                  likes,
+                  dislikes,
+                  decidedGift,
+                  id,
+                })
+              }
               style={styles.editButton}
             >
               <MaterialCommunityIcons

@@ -7,21 +7,19 @@ import {
   Dimensions,
   ScrollView,
 } from "react-native";
+import { styles } from "../styles";
+import CustomButton from "../components/CustomButton";
+import { getFirestore, doc, updateDoc } from "firebase/firestore";
 import {
-  getFirestore,
-  doc,
-  setDoc,
-  collection,
   addDoc,
+  collection,
   query,
   where,
   getDocs,
-  updateDoc,
+  setDoc,
 } from "firebase/firestore";
-import { styles } from "../styles";
-import CustomButton from "../components/CustomButton";
 
-function EditGift({ navigation, route }) {
+function EditGift({ giftData, onClose, username }) {
   const [recipient, setRecipient] = useState("");
   const [date, setDate] = useState("");
   const [occasion, setOccasion] = useState("");
@@ -29,54 +27,45 @@ function EditGift({ navigation, route }) {
   const [likes, setLikes] = useState("");
   const [dislikes, setDislikes] = useState("");
   const [decidedGift, setDecidedGift] = useState("");
-  const { username } = route.params;
-
-  useEffect(() => {
-    setRecipient(route.params.giftData.recipient);
-    setDate(formatUnixTimestamp(route.params.giftData.date));
-    setOccasion(route.params.giftData.occasion);
-    setBudget(route.params.giftData.budget.toString());
-    setLikes(route.params.giftData.likes);
-    setDislikes(route.params.giftData.dislikes);
-    setDecidedGift(route.params.giftData.decidedGift);
-  }, [route.params.giftData]);
 
   const formatUnixTimestamp = (timestamp) => {
+    if (!timestamp) return "";
+
     const date = new Date(timestamp);
-    return date
-      .toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-      })
-      .replace(/\//g, "."); // Replace slashes with periods
+    const formattedDate = `${(date.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}.${date
+      .getDate()
+      .toString()
+      .padStart(2, "0")}.${date.getFullYear()}`;
+    return formattedDate;
   };
 
-  const isValidDate = (dateString) => {
-    const regex = /^(0[1-9]|1[0-2]).(0[1-9]|[12][0-9]|3[01]).\d{4}$/;
-    return regex.test(dateString);
-  };
+  useEffect(() => {
+    if (giftData) {
+      setRecipient(giftData.recipient || "");
+      setDate(formatUnixTimestamp(giftData.date));
+      setOccasion(giftData.occasion || "");
+      setBudget(giftData.budget ? giftData.budget.toString() : "");
+      setLikes(giftData.likes || "");
+      setDislikes(giftData.dislikes || "");
+      setDecidedGift(giftData.decidedGift || "");
+    }
+  }, [giftData]);
 
   const saveData = async () => {
-    if (!recipient || !date || !isValidDate(date)) {
-      Alert.alert(
-        "Error",
-        "Recipient and a valid date (MM/DD/YYYY) are required."
-      );
-      return;
-    }
+    console.log("Save Data Pressed");
 
-    const [month, day, year] = date.split(".").map(Number);
     const currentDate = new Date();
+    const [month, day, year] = date.split(".").map(Number);
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth() + 1;
     const currentDay = currentDate.getDate();
 
-    // Convert date to Unix timestamp
     const [monthIndex, dayIndex, yearIndex] = date.split(".").map(Number);
     const timestamp = new Date(yearIndex, monthIndex - 1, dayIndex).getTime();
 
-    const giftData = {
+    const updatedGiftData = {
       recipient,
       date: timestamp,
       occasion,
@@ -87,22 +76,18 @@ function EditGift({ navigation, route }) {
     };
 
     const db = getFirestore();
-
     try {
-      if (route.params.giftData.id) {
-        // Update existing gift
-        const giftDocRef = doc(db, "gifts", route.params.giftData.id);
-        await updateDoc(giftDocRef, giftData);
+      if (giftData.id) {
+        const giftDocRef = doc(db, "gifts", giftData.id);
+        await updateDoc(giftDocRef, updatedGiftData);
       } else {
-        // Add new gift
-        const giftRef = await addDoc(collection(db, "gifts"), giftData);
+        const giftRef = await addDoc(collection(db, "gifts"), updatedGiftData);
         const giftId = giftRef.id;
-        giftData.id = giftId;
+        updatedGiftData.id = giftId;
 
         const usersRef = collection(db, "users");
         const userQuery = query(usersRef, where("username", "==", username));
         const userQuerySnapshot = await getDocs(userQuery);
-
         if (!userQuerySnapshot.empty) {
           const userData = userQuerySnapshot.docs[0].data();
           const userGiftIDs = userData.gifts || [];
@@ -112,6 +97,7 @@ function EditGift({ navigation, route }) {
           await setDoc(userDocRef, { gifts: userGiftIDs }, { merge: true });
         }
       }
+      console.log("Gift saved successfully!");
 
       setRecipient("");
       setDate("");
@@ -121,9 +107,11 @@ function EditGift({ navigation, route }) {
       setDislikes("");
       setDecidedGift("");
 
-      navigation.navigate("Home", { newGift: giftData });
+      console.log("Calling onClose..");
+      onClose();
     } catch (error) {
       console.error("Error saving gift data: ", error);
+      Alert.alert("Error", "There was an issue saving the gift.");
     }
   };
 
