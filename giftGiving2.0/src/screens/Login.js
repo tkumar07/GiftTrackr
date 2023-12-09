@@ -39,7 +39,6 @@ const Login = (props) => {
         const userData = querySnapshot.docs[0].data();
         if (userData.password === password) {
           if (props && props.onSuccessfulLogin) {
-            console.log("HELLO THERE", username);
             props.onSuccessfulLogin(username);
           }
           console.log("Login successful");

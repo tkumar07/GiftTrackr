@@ -16,14 +16,14 @@ const GiftDetailsCard = ({
   decidedGift,
   id,
   updateGifts,
+  navigation,
 }) => {
   const [suggestedGifts, setSuggestedGifts] = useState([]);
-  
+
   useEffect(() => {
-    console.log('useEffect triggered');
+    // console.log("useEffect triggered");
     fetchSuggestedGifts(occasion, budget, likes);
   }, [occasion, budget, likes]);
-  
 
   const formatDate = (unixTimestamp) => {
     const dateObject = new Date(unixTimestamp);
@@ -72,7 +72,7 @@ const GiftDetailsCard = ({
     });
 
     const data = await response.json();
-    console.log("API Response:", data);
+    // console.log("API Response:", data);
     const suggestedGiftsArray = data.choices[0].text
       .split("\n")
       .filter((item) => item.trim() !== "");
@@ -80,55 +80,91 @@ const GiftDetailsCard = ({
     setSuggestedGifts(suggestedGiftsArray);
   };
 
+  const handleEdit = (id) => {
+    navigation.navigate("EditGift", {
+      giftData: {
+        recipient,
+        date,
+        occasion,
+        budget,
+        likes,
+        dislikes,
+        decidedGift,
+        id,
+      },
+      updateGifts,
+      navigation,
+    });
+  };
+
   return (
     <Card containerStyle={styles.cardContainer}>
-  <View style={styles.cardHeader}>
-    <Text style={styles.subtitle}>{recipient}</Text>
-    <Text style={styles.date}>{formattedDate}</Text>
-  </View>
-  <View style={styles.cardContent}>
-    <Text style={styles.text}>{occasion}</Text>
-  </View>
-  <View style={styles.cardContent}>
-    <View style={styles.box}>
-      <View>
-        <Text style={styles.decidedGiftText}>Planning to Give:</Text>
-        <Text style={styles.text}>{decidedGift}</Text>
+      <View style={styles.cardHeader}>
+        <Text style={styles.subtitle}>{recipient}</Text>
+        <Text style={styles.date}>{formattedDate}</Text>
       </View>
-      <View style={styles.budgetBox}>
-        <Text style={styles.budgetText}>Budget:</Text>
-        <Text style={styles.text}>{budget}</Text>
+      <View style={styles.cardContent}>
+        <Text style={styles.text}>{occasion}</Text>
       </View>
-    </View>
-  </View>
-  <View style={styles.cardContent}>
-    <View style={styles.twoColumnContainer}>
-      <View style={styles.column}>
-        <Text style={styles.columnTitle}>Likes</Text>
-        <Text style={styles.text}>{likes}</Text>
+      <View style={styles.cardContent}>
+        <View style={styles.box}>
+          <View>
+            <Text style={styles.decidedGiftText}>Planning to Give:</Text>
+            <Text style={styles.text}>{decidedGift}</Text>
+          </View>
+          <View style={styles.budgetBox}>
+            <Text style={styles.budgetText}>Budget:</Text>
+            <Text style={styles.text}>{budget}</Text>
+          </View>
+        </View>
       </View>
-      <View style={styles.column}>
-        <Text style={styles.columnTitle}>Dislikes</Text>
-        <Text style={styles.text}>{dislikes}</Text>
-        <TouchableOpacity onPress={() => handleDelete(id)} style={styles.deleteButton}>
-          <MaterialCommunityIcons name="delete" size={24} color="gray" />
-        </TouchableOpacity>
+      <View style={styles.cardContent}>
+        <View style={styles.twoColumnContainer}>
+          <View style={styles.column}>
+            <Text style={styles.columnTitle}>Likes</Text>
+            <Text style={styles.text}>{likes}</Text>
+          </View>
+          <View style={styles.column}>
+            <Text style={styles.columnTitle}>Dislikes</Text>
+            <Text style={styles.text}>{dislikes}</Text>
+          </View>
+        </View>
+        <View style={[styles.setting, { marginTop: 10, marginBottom: -1 }]}>
+          <View style={[{ marginTop: -9 }]}>
+            <TouchableOpacity
+              onPress={() => handleEdit(id)}
+              style={styles.editButton}
+            >
+              <MaterialCommunityIcons
+                name="square-edit-outline"
+                size={24}
+                color="gray"
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={[{ marginTop: 24, marginRight: 15 }]}>
+            <TouchableOpacity
+              onPress={() => handleDelete(id)}
+              style={styles.deleteButton}
+            >
+              <MaterialCommunityIcons name="delete" size={24} color="gray" />
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
-    </View>
-  </View>
-  <View style={styles.suggestedGiftsContainer}>
-    <Text style={styles.suggestedGiftsTitle}>Suggested Gift:</Text>
-    {suggestedGifts.length > 0 ? (
-      suggestedGifts.map((gift, index) => (
-        <Text key={index} style={styles.suggestedGift}>
-          {gift}
-        </Text>
-      ))
-    ) : (
-      <Text style={styles.noSuggestionsText}>No suggestions available</Text>
-    )}
-  </View>
-</Card>
+      <View style={styles.suggestedGiftsContainer}>
+        <Text style={styles.suggestedGiftsTitle}>Suggested Gift:</Text>
+        {suggestedGifts.length > 0 ? (
+          suggestedGifts.map((gift, index) => (
+            <Text key={index} style={styles.suggestedGift}>
+              {gift}
+            </Text>
+          ))
+        ) : (
+          <Text style={styles.noSuggestionsText}>No suggestions available</Text>
+        )}
+      </View>
+    </Card>
   );
 };
 

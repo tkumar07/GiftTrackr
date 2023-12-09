@@ -32,7 +32,7 @@ function HomeScreen(props) {
         const userData = userQuerySnapshot.docs[0].data();
         const userGiftIDs = userData.gifts || [];
         if (userGiftIDs.empty) {
-          console.log("No gifts found");
+          // console.log("No gifts found");
         }
         const giftDetailsPromises = userGiftIDs.map(async (giftID) => {
           const giftRef = doc(db, "gifts", giftID);
@@ -40,7 +40,7 @@ function HomeScreen(props) {
           if (giftDoc.exists()) {
             return { ...giftDoc.data(), id: giftDoc.id };
           } else {
-            console.log("Gift is deleted! ", giftID);
+            // console.log("Gift is deleted! ", giftID);
           }
           return null;
         });
@@ -111,6 +111,7 @@ function HomeScreen(props) {
             decidedGift={giftCard.decidedGift}
             id={giftCard.id}
             updateGifts={fetchUserGifts}
+            navigation={props.navigation}
           />
         ))}
         <Text style={styles.pageHeader}>Upcoming Gifts</Text>
@@ -126,6 +127,7 @@ function HomeScreen(props) {
             decidedGift={giftCard.decidedGift}
             id={giftCard.id}
             updateGifts={fetchUserGifts}
+            navigation={props.navigation}
           />
         ))}
         {upcomingGifts.length === 0 && (
