@@ -85,3 +85,6 @@ Here is a summary of important design decisions made for the GiftTrackr App:
 
 <img width="244" alt="Screenshot 2023-11-29 at 2 53 38 PM" src="https://github.com/ucsb-cs184-f23/pj-react-03/assets/65988599/24f3cd9e-f002-431d-aed2-18f70ea1107e">
 
+![Screenshot 2023-12-08 at 4 25 33 PM](https://github.com/ucsb-cs184-f23/pj-react-03/assets/40641696/41bba3b4-dd8f-498b-9be2-055f5294a9f0)
+
+

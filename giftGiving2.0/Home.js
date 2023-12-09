@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ScrollView, Dimensions } from "react-native";
+import { View, Text, ScrollView, Dimensions, TouchableOpacity } from "react-native";
 import { GiftDetailsCard } from "./src/components/GiftDetailsCard";
 import { styles } from "./src/styles";
 import { db } from "./src/config/firebase";
@@ -13,10 +13,14 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { useFocusEffect } from "@react-navigation/native";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { useNavigation } from "@react-navigation/native";
+import AddGift from "./src/screens/AddGift";
 
 function HomeScreen(props) {
   const { username } = props.route.params;
   const [userGifts, setUserGifts] = useState([]);
+  const navigation = useNavigation();
 
   const fetchUserGifts = async () => {
     try {
@@ -85,7 +89,10 @@ function HomeScreen(props) {
   if (marginTopAmnt > 75) {
     marginTopAmnt = 75;
   }
-
+  const goToAddGift = () => {
+    // Navigate to the AddGift screen without using props.navigation
+    props.navigation.push("AddGift", { username });
+  };
   return (
     <View style={{ ...styles.grayContainer, marginTop: marginTopAmnt }}>
       <ScrollView width="100%">
@@ -125,13 +132,23 @@ function HomeScreen(props) {
         ))}
         {upcomingGifts.length === 0 && (
           <View styles={styles.container}>
-            <Text style={{ color: "gray", margin: 10, fontSize: 18 }}>
-              No upcoming gifts to display. Try adding a gift by navigating the
-              add gift page at the bottom right!
+            <Text style={{ color: "gray", margin: 30, fontSize: 22 }}>
+              No upcoming gifts to display!
+              {"\n"}
+              {"\n"}
+              Try adding a gift by pressing "+"
             </Text>
           </View>
         )}
       </ScrollView>
+      
+      {/* Floating action button for adding gifts */}
+      <TouchableOpacity
+        style={styles.fab}
+        onPress={() => navigation.navigate("AddGift", { username: username })}
+      >
+        <MaterialCommunityIcons name="plus" size={30} color="white" />
+      </TouchableOpacity>
     </View>
   );
 }

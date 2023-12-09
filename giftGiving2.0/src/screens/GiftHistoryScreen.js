@@ -1,28 +1,11 @@
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  ActivityIndicator,
-  TextInput,
-  ScrollView,
-  Alert,
-} from "react-native";
-import Modal from "react-native-modal";
-import CustomButton from "../components/CustomButton";
-import GiftHistoryCard from "../components/GiftHistoryCard";
-import { db } from "../config/firebase";
-import { styles } from "../styles";
-import {
-  getFirestore,
-  addDoc,
-  collection,
-  query,
-  getDocs,
-  where,
-  doc,
-  setDoc,
-} from "firebase/firestore";
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, ActivityIndicator, TextInput, ScrollView, Alert, Dimensions } from 'react-native';
+import Modal from 'react-native-modal';
+import CustomButton from '../components/CustomButton';
+import GiftHistoryCard from '../components/GiftHistoryCard';
+import { db } from '../config/firebase';
+import { styles } from '../styles';
+import { getFirestore, addDoc, collection, query, getDocs, where, doc, setDoc } from 'firebase/firestore';
 
 const GiftHistoryScreen = ({ route }) => {
   const [gifts, setGifts] = useState([]);
@@ -31,14 +14,15 @@ const GiftHistoryScreen = ({ route }) => {
   // Directly destructure username from route.params since initialParams is set
   const { username } = route.params;
 
+
   // State for new gift form
-  const [newRecipient, setNewRecipient] = useState("");
-  const [newDate, setNewDate] = useState("");
-  const [newOccasion, setNewOccasion] = useState("");
-  const [newBudget, setNewBudget] = useState("");
-  const [newLikes, setNewLikes] = useState("");
-  const [newDislikes, setNewDislikes] = useState("");
-  const [newDecidedGift, setNewDecidedGift] = useState("");
+  const [newRecipient, setNewRecipient] = useState('');
+  const [newDate, setNewDate] = useState('');
+  const [newOccasion, setNewOccasion] = useState('');
+  const [newBudget, setNewBudget] = useState('');
+  const [newLikes, setNewLikes] = useState('');
+  const [newDislikes, setNewDislikes] = useState('');
+  const [newDecidedGift, setNewDecidedGift] = useState('');
 
   useEffect(() => {
     fetchGiftHistory(username);
@@ -46,10 +30,7 @@ const GiftHistoryScreen = ({ route }) => {
 
   const fetchGiftHistory = async (username) => {
     setLoading(true);
-    const userQuery = query(
-      collection(db, "users"),
-      where("username", "==", username)
-    );
+    const userQuery = query(collection(db, "users"), where("username", "==", username));
     const userQuerySnapshot = await getDocs(userQuery);
 
     if (!userQuerySnapshot.empty) {
@@ -58,14 +39,12 @@ const GiftHistoryScreen = ({ route }) => {
 
       if (userGiftIDs.length > 0) {
         const now = new Date().getTime();
-        const giftRef = collection(db, "gifts");
-        const giftsQuerySnapshot = await getDocs(
-          query(giftRef, where("__name__", "in", userGiftIDs))
-        );
+        const giftRef = collection(db, 'gifts');
+        const giftsQuerySnapshot = await getDocs(query(giftRef, where('__name__', 'in', userGiftIDs)));
 
         const pastGifts = giftsQuerySnapshot.docs
-          .map((doc) => ({ id: doc.id, ...doc.data() }))
-          .filter((gift) => gift.date < now);
+          .map(doc => ({ id: doc.id, ...doc.data() }))
+          .filter(gift => gift.date < now);
 
         setGifts(pastGifts);
       } else {
@@ -155,35 +134,22 @@ const GiftHistoryScreen = ({ route }) => {
 
   const formatDate = (timestamp) => {
     const date = new Date(timestamp);
-    return date.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
+    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   };
 
-  const renderInputField = (
-    placeholder,
-    value,
-    setValue,
-    keyboardType = "default",
-    autoCapitalize = "none"
-  ) => {
+  const renderInputField = (placeholder, value, setValue, keyboardType = 'default', autoCapitalize = 'none') => {
     const handleTextChange = (text) => {
       // Special handling for date input to automatically add slashes
-      if (
-        placeholder === "Date (MM/DD/YYYY)" &&
-        (text.length === 2 || text.length === 5)
-      ) {
+      if (placeholder === 'Date (MM/DD/YYYY)' && (text.length === 2 || text.length === 5)) {
         if (text.length === 2 && value.length === 3) {
           // Handle backspace at position 3
           text = text.slice(0, -1);
         } else if (text.length === 5 && value.length === 6) {
           // Handle backspace at position 6
           text = text.slice(0, -1);
-        } else if (!text.endsWith("/")) {
+        } else if (!text.endsWith('/')) {
           // Add slash if text doesn't already end with one
-          text += "/";
+          text += '/';
         }
       }
       setValue(text);
@@ -215,15 +181,23 @@ const GiftHistoryScreen = ({ route }) => {
     );
   };
 
+  const screenHeight = Dimensions.get("window").height;
+  const marginTopAmnt = screenHeight * 0.09;
+
   return (
-    <View style={styles.container}>
+    <View style={{
+      ...styles.grayContainer,
+      marginTop: marginTopAmnt,
+    }}
+    >
       {loading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : gifts.length > 0 ? (
         <FlatList
+          style={{ width: "100%" }}
           data={gifts}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={item => item.id.toString()}
         />
       ) : (
         <Text style={styles.regularText}>No past gifts to display.</Text>
@@ -236,30 +210,19 @@ const GiftHistoryScreen = ({ route }) => {
       />
 
       <Modal isVisible={isAddGiftModalVisible}>
-        <ScrollView style={styles.modalContainer}>
+        <ScrollView width="100%">
+        <View style= {{justifyContent: "flex-start", alignItems: 'center'}}>
           <Text style={styles.pageHeader}>Add Past Gift</Text>
-          {renderInputField("Recipient", newRecipient, setNewRecipient)}
-          {renderInputField(
-            "Date (MM/DD/YYYY)",
-            newDate,
-            setNewDate,
-            "numeric"
-          )}
-          {renderInputField("Occasion", newOccasion, setNewOccasion)}
-          {renderInputField("Budget", newBudget, setNewBudget, "numeric")}
-          {renderInputField("Likes", newLikes, setNewLikes)}
-          {renderInputField("Dislikes", newDislikes, setNewDislikes)}
-          {renderInputField("Decided Gift", newDecidedGift, setNewDecidedGift)}
-          <CustomButton
-            title="Save Gift"
-            onPress={handleSavePastGift}
-            style={styles.customButton}
-          />
-          <CustomButton
-            title="Cancel"
-            onPress={() => setAddGiftModalVisible(false)}
-            style={styles.customButton}
-          />
+          {renderInputField('Recipient', newRecipient, setNewRecipient)}
+          {renderInputField('Date (MM/DD/YYYY)', newDate, setNewDate, 'numeric')}
+          {renderInputField('Occasion', newOccasion, setNewOccasion)}
+          {renderInputField('Budget', newBudget, setNewBudget, 'numeric')}
+          {renderInputField('Likes', newLikes, setNewLikes)}
+          {renderInputField('Dislikes', newDislikes, setNewDislikes)}
+          {renderInputField('Decided Gift', newDecidedGift, setNewDecidedGift)}
+          <CustomButton title="Save Gift" onPress={handleSavePastGift} style={styles.customButton} />
+          <CustomButton title="Cancel" onPress={() => setAddGiftModalVisible(false)} style={styles.customButton} />
+          </View>
         </ScrollView>
       </Modal>
     </View>
@@ -268,8 +231,9 @@ const GiftHistoryScreen = ({ route }) => {
 
 styles.input = {
   ...styles.input,
-  backgroundColor: "#fff",
-  color: "#000",
+  backgroundColor: '#fff',
+  color: '#000',
 };
+
 
 export default GiftHistoryScreen;
