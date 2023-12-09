@@ -14,13 +14,13 @@
 
 ### Commits and Code Changes
 
-| Name            | Commits | Code Additions | Code Deletions   |
+| Name            | Commits | Code Additions  | Code Deletions  |
 |-----------------|---------|-----------------|---------------- |
 | Marie Karpinska | 71      | 2,537 ++        | 721 --          |
 | Benjamin Yang   | 27      |       ++        |     --          |
 | Shang-Hsun Yang | 21      |  207  ++        | 84  --          |
-| Tanish Kumar    | 13      |  898++          | 248 --          |
-| Archit Gupta    | 11      |  942 ++         | 401 --          |
+| Tanish Kumar    | 13      |  898  ++        | 248 --          |
+| Archit Gupta    | 11      |  942  ++        | 401 --          |
 
 * Excluded changes from Marie Karpinska on Oct 14th and Oct 29th for initializing the app and deleting the old app folder (29,117++ and 30,150--)
 * Excluded pacakge-lock.json changes from Benjamin Yang on Oct 21-22nd (11,990++ and 7,047--).
@@ -33,7 +33,7 @@
 | Marie Karpinska | 11                 | 10                      |
 | Archit Gupta    | 4                  | 4                       |
 | Benjamin Yang   | 4                  | 8                       |
-| Shang-Hsun Yang | 4                  | 1                       |
+| Shang-Hsun Yang | 4                  | 3                       |
 | Tanish Kumar    | 7                  | 6                       |
 
 * Excluded 3 of Marie's PRs --> 2 were merging her branches together and one was a duplicate
@@ -53,3 +53,7 @@ Throughout the quarter, I have been a very involved and helpful team member on t
 #### Archit Gupta
 
 During my time contributing to the GiftTrackr App, I've poured my dedication into 11 impactful commits that enriched the app with 942 additions while cleaning up with 401 deletions. My focus was on the complete development of the Budget and GiftHistory pages, two out of our respective five app pages, and the most functionality-heavy aspects of our screens. Both pages are now foundational features that now stand robust and user-oriented. I steered 4 pull requests to fruition and took part in reviewing another, ensuring that our collaborative efforts resonated with quality and cohesiveness. My foray into React Native, bolstered by a solid React background, was a pivotal force in sculpting these features. My commitment was to deliver not just code, but value, learning, and adaptability, recognizing that the strength of our project lies in the mosaic of our diverse contributions.
+
+#### Shang-Hsun Yang
+Within the development process of the GiftTrackr application, my primary responsibility is to implement the "add gift" page, ensure data synchronization with the Firebase service, and conduct evaluations of our application. In the team, I function as a software test engineer or product quality assurance engineer, aiming to enhance the perfection of our application and diligently identifying any issues and bugs. With numerous pull requests from team members, obsolete elements are discarded, and new features are incorporated. My role includes ensuring that users experience the best release version of the application with no visible errors. One area for improvement within our team is optimizing various meetings and accelerating development under the SCRUM method. Lastly, I have a deep appreciation for this team and the project!
+
