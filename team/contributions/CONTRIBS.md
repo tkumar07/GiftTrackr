@@ -48,7 +48,7 @@ During my time contributing to the GiftTrackr App, I've been actively involved w
 
 #### Tanish Kumar
 
-Throughout the quarter, I have been a very involved and helpful team member on the GiftTrackr app. I have made 7 pull requests and reviewed 6. I have been timely in both submitting PRs as well as reviewing them. The things I worked on in the app were multiple versions of the Calendar screen, adding the initial show/hide password functionality, and then OpenAI API integration for the Gift Suggestions feature. One thing to improve on in the future is committing my code more often, as I would often wait until features were done to commit my code. Overall, I am happy with my contributions and had a very fun time working on the GiftTrackr app!
+Throughout the quarter, I have been a very involved and helpful team member on the GiftTrackr app. I have made 8 pull requests and reviewed 7. I have been timely in both submitting PRs as well as reviewing them. The things I worked on in the app were multiple versions of the Calendar screen, adding the initial show/hide password functionality, and then OpenAI API integration for the Gift Suggestions feature. One thing to improve on in the future is committing my code more often, as I would often wait until features were done to commit my code. Overall, I am happy with my contributions and had a very fun time working on the GiftTrackr app!
 
 #### Archit Gupta
 
