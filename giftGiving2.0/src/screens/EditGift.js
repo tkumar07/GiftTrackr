@@ -7,7 +7,17 @@ import {
   Dimensions,
   ScrollView,
 } from "react-native";
-import { getFirestore, doc, setDoc, collection, addDoc, query, where, getDocs, updateDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  collection,
+  addDoc,
+  query,
+  where,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { styles } from "../styles";
 import CustomButton from "../components/CustomButton";
 
@@ -55,28 +65,17 @@ function EditGift({ navigation, route }) {
       );
       return;
     }
-  
+
     const [month, day, year] = date.split(".").map(Number);
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth() + 1;
     const currentDay = currentDate.getDate();
-  
-    if (
-      month < 1 ||
-      month > 12 ||
-      year < currentYear ||
-      (year === currentYear && month < currentMonth) ||
-      (year === currentYear && month === currentMonth && day < currentDay)
-    ) {
-      Alert.alert("Error", "Please enter a valid date after today.");
-      return;
-    }
-  
+
     // Convert date to Unix timestamp
     const [monthIndex, dayIndex, yearIndex] = date.split(".").map(Number);
     const timestamp = new Date(yearIndex, monthIndex - 1, dayIndex).getTime();
-  
+
     const giftData = {
       recipient,
       date: timestamp,
@@ -86,9 +85,9 @@ function EditGift({ navigation, route }) {
       dislikes,
       decidedGift,
     };
-  
+
     const db = getFirestore();
-  
+
     try {
       if (route.params.giftData.id) {
         // Update existing gift
@@ -99,21 +98,21 @@ function EditGift({ navigation, route }) {
         const giftRef = await addDoc(collection(db, "gifts"), giftData);
         const giftId = giftRef.id;
         giftData.id = giftId;
-  
+
         const usersRef = collection(db, "users");
         const userQuery = query(usersRef, where("username", "==", username));
         const userQuerySnapshot = await getDocs(userQuery);
-  
+
         if (!userQuerySnapshot.empty) {
           const userData = userQuerySnapshot.docs[0].data();
           const userGiftIDs = userData.gifts || [];
           userGiftIDs.push(giftId);
-  
+
           const userDocRef = doc(db, "users", userQuerySnapshot.docs[0].id);
           await setDoc(userDocRef, { gifts: userGiftIDs }, { merge: true });
         }
       }
-  
+
       setRecipient("");
       setDate("");
       setOccasion("");
@@ -121,13 +120,12 @@ function EditGift({ navigation, route }) {
       setLikes("");
       setDislikes("");
       setDecidedGift("");
-  
+
       navigation.navigate("Home", { newGift: giftData });
     } catch (error) {
       console.error("Error saving gift data: ", error);
     }
   };
-  
 
   const screenHeight = Dimensions.get("window").height;
   let marginTopAmnt = screenHeight * 0.09;

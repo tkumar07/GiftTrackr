@@ -174,12 +174,11 @@ export default function App() {
   //   });
   // }
 
-
-  const handleLogout = () => {  
+  const handleLogout = () => {
     setIsLoggedIn(false);
   };
-  
-  ExpoNotifications.addNotificationReceivedListener(notification => {
+
+  ExpoNotifications.addNotificationReceivedListener((notification) => {
     console.log(notification);
   });
 
@@ -359,8 +358,19 @@ export default function App() {
               component={EditGift}
               options={{
                 tabBarVisible: false, // Hide the bottom tab bar when editing
+                tabBarIcon: ({ color }) => (
+                  <MaterialCommunityIcons
+                    name="pencil-outline"
+                    color={color}
+                    size={26}
+                  />
+                ),
+              }}
+            />
+
+            <Tab.Screen
               name="Logout"
-              component={View} // A dummy component, since we will handle logout on press
+              component={View} // A dummy component, since logout is handled on press
               listeners={{
                 tabPress: (e) => {
                   e.preventDefault(); // Prevent default action
