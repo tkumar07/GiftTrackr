@@ -31,7 +31,7 @@
 | Name            | Pull Requests Made | Pull Requests Reviewed |
 |-----------------|--------------------|-------------------------|
 | Marie Karpinska | 11                 | 10                      |
-| Archit Gupta    | 4                  | 1                       |
+| Archit Gupta    | 4                  | 4                       |
 | Benjamin Yang   | 4                  | 8                       |
 | Shang-Hsun Yang | 4                  | 1                       |
 | Tanish Kumar    | 7                  | 6                       |
