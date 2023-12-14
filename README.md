@@ -71,7 +71,7 @@ Please ensure that you have Expo CLI, React Native, and the Expo Go app installe
 2. Change the current working directory to where you want to store the project.
 3. Run the following command to clone the project from GitHub:
 
-`git clone https://github.com/ucsb-cs184-f23/pj-react-03.git`
+`git clone https://github.com/tkumar07/GiftTrackr`
 
 Navigate to the project directory:
 
