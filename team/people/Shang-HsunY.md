@@ -1,1 +1,0 @@
-I come from Taiwan. I'm a second-year graduate student in the ECE department. My academic background is closely related to software development. I'm currently looking for a full-time software engineer job.
