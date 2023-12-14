@@ -4,19 +4,11 @@ An app designed to streamline the process of gift giving by helping users track 
 
 # Tech Stack
 
-The tech stack for our Gift Giving Tracker is designed to provide a robust and user-friendly mobile experience. React Native, complemented by the NativeBase component library, allows for cross-platform compatibility across iOS and Android devices. Expo CLI is utilized to facilitate the development process, enabling quick iterations and easy deployment.
+The tech stack for the Gift Giving Tracker is designed to provide a robust and user-friendly mobile experience. React Native, complemented by the NativeBase component library, allows for cross-platform compatibility across iOS and Android devices. Expo CLI is utilized to facilitate the development process, enabling quick iterations and easy deployment.
 
 # User Roles
 
 The app caters to anyone looking to give thoughtful and meaningful gifts to their friends and family on time, ensuring that they stay within their budget and never miss an important occasion.
-
-## Our Team Members:
-
-- Marie Karpinska: mariekarpinska
-- Benjamin Yang: BenYangSB
-- Shang-Hsun Yang: shang-hsun
-- Tanish Kumar: tkumar07
-- Archit Gupta: archit-gpt
 
 # Installation
 Follow the prerequisites and step-by-step guide to set up the app environment and start using the Gift Giving Tracker.
