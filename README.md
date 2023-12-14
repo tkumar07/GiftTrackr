@@ -75,7 +75,7 @@ Please ensure that you have Expo CLI, React Native, and the Expo Go app installe
 
 Navigate to the project directory:
 
-`cd pj-react-03/giftGiving2.0/`
+`cd giftGiving2.0`
 
 Install project dependencies using npm. Run the following command:
 
