@@ -88,27 +88,6 @@ After the dependencies are installed, start the development server:
 
 Scan the QR code on your phone with Expo Go downloaded on it and enjoy the app! Make sure both your laptop and phone are connected to the same WiFi network.
 
-# Functionality
-
-- **Gift Planning**: Users can keep track of what their friends like and when they plan to give them gifts.
-- **Gift Idea Storage**: Users can also store what they plan on giving and how much they are willing to spend. 
-- **Event Storage**: Users can add custom events to their calendar so they never forget a gift giving occassion.
-- **Budget Tracking**: The app aggregates the total spent by summing the cost of each gift and displays the remaining budget by deducting this total from the user-entered budget.
-- **First Budget Prompt**: A message prompts users to create their first budget if the value is set to zero.
-
-# Known Problems and Implemented Fixes
-
-1. **Negative Budget Values**: 
-   - **Previous Problem**: The app allowed the budget value to go negative.
-   - **Implemented Fix**: This issue has been resolved. The app now prevents the budget from dropping below zero and alerts users when the remaining budget hits zero, stopping the addition of new gifts until a new budget is set.
-
-2. **Refreshing Budget Values**: 
-   - **Previous Problem**: Budget values were not updated immediately after deleting a gift, requiring a reload of the app to reflect changes in the total spent value on the budget page.
-   - **Implemented Fix**: The app's budget calculation logic has been updated to refresh dynamically. This ensures real-time updating of budget values without the need to reload the app, providing a smoother and more accurate budget tracking experience.
-
-3. **Screen Size Responsiveness**: 
-   - **Previous Problem**: The app was not very user-friendly on very small screens.
-   - **Implemented Fix**: Screen responsiveness has been enhanced. For iOS devices, users can adjust their global text size settings to affect the app's text display, done by navigating to Settings > Accessibility > Display & Text Size > Larger Text. This customization helps improve readability and overall user experience in our app.
 
 # Contributing
 
