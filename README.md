@@ -1,4 +1,4 @@
-# Gift Giving Tracker (pj-react-03)
+# Gift Giving Tracker
 
 An app designed to streamline the process of gift giving by helping users track their gift ideas, planned giving dates, purchase links, and budget all in one place.
 
